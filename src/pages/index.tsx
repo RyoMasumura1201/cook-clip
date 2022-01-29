@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
 import Layout from '../components/Layout';
+import Movie from '../components/Movie';
+import { Wrap, WrapItem } from '@chakra-ui/react';
 
 type Props = {
   items: any;
@@ -25,7 +27,13 @@ const Home: NextPage<Props> = ({ items }) => {
   console.log(items);
   return (
     <Layout>
-      <p>test</p>
+      <Wrap justify='center' mt='4'>
+        {items.map((item: any) => (
+          <WrapItem key={item.id.videoId}>
+            <Movie video={item} />
+          </WrapItem>
+        ))}
+      </Wrap>
     </Layout>
   );
 };
