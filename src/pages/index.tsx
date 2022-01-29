@@ -3,24 +3,26 @@ import { GetStaticProps } from 'next';
 import Layout from '../components/Layout';
 
 type Props = {
-  data: any;
+  items: any;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
       'UCW01sMEVYQdhcvkrhbxdBpw' + //リュウジさんのchannelId
+      '&maxResults=50' +
       '&key=' +
       process.env.YOUTUBE_API_KEY,
   );
   const data = await res.json();
+  const items = data.items;
   return {
-    props: { data },
+    props: { items },
   };
 };
 
-const Home: NextPage<Props> = ({ data }) => {
-  console.log(data);
+const Home: NextPage<Props> = ({ items }) => {
+  console.log(items);
   return (
     <Layout>
       <p>test</p>
