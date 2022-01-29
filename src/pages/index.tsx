@@ -13,7 +13,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
       'UCW01sMEVYQdhcvkrhbxdBpw' + //リュウジさんのchannelId
-      '&maxResults=50' +
+      '&maxResults=10' +
       '&key=' +
       process.env.YOUTUBE_API_KEY,
   );
@@ -28,7 +28,7 @@ const Home: NextPage<Props> = ({ items }) => {
   console.log(items);
   return (
     <Layout>
-      <Wrap justify='center' mt='4'>
+      <Wrap justify='center' mt='4' spacing='10'>
         {items.map((item: YoutubeMovie) => (
           <WrapItem key={item.id.videoId}>
             <Movie video={item} />
