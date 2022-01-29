@@ -1,7 +1,8 @@
 import { memo } from 'react';
+import { YoutubeMovie } from '../../type';
 
 type Props = {
-  video: any;
+  video: YoutubeMovie;
 };
 const Movie: React.VFC<Props> = (props) => {
   const { video } = props;

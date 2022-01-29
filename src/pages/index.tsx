@@ -2,10 +2,11 @@ import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
 import Layout from '../components/Layout';
 import Movie from '../components/Movie';
+import { YoutubeMovie } from '../../type';
 import { Wrap, WrapItem } from '@chakra-ui/react';
 
 type Props = {
-  items: any;
+  items: YoutubeMovie[];
 };
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -28,7 +29,7 @@ const Home: NextPage<Props> = ({ items }) => {
   return (
     <Layout>
       <Wrap justify='center' mt='4'>
-        {items.map((item: any) => (
+        {items.map((item: YoutubeMovie) => (
           <WrapItem key={item.id.videoId}>
             <Movie video={item} />
           </WrapItem>
