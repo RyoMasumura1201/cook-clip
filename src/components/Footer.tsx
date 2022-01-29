@@ -8,7 +8,7 @@ const Footer: React.VFC = () => {
     <footer>
       <Box bg='black' width='100%' p='2' textAlign='center'>
         <Center>
-          <a href='https://github.com/RyoMasumura1201/career-calculate'>
+          <a href='https://github.com/RyoMasumura1201/cook-clip'>
             <Center>
               <FaGithub color='white' size='50' />
             </Center>
