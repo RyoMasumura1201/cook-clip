@@ -25,7 +25,6 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Home: NextPage<Props> = ({ items }) => {
-  console.log(items);
   return (
     <Layout>
       <Wrap justify='center' mt='4' spacing='10'>
