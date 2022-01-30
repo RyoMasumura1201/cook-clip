@@ -15,7 +15,7 @@ const opts = {
 
 const Movie: React.VFC<Props> = (props) => {
   const { video } = props;
-  const url = 'movie/' + video.id.videoId;
+  const url = '/movie/' + video.id.videoId;
   return (
     <Box width='400px' height='300px'>
       <Stack textAlign='center'>
