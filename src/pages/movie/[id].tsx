@@ -1,17 +1,26 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
+import YouTube from 'react-youtube';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
-import { Text } from '@chakra-ui/react';
+import { Text, Stack, Box } from '@chakra-ui/react';
 
 type Props = {
-  item: YoutubeMovie;
+  video: YoutubeMovie;
 };
 
-const MoviePage: NextPage<Props> = ({ item }) => {
+const opts = {
+  height: '225',
+  width: '400',
+};
+
+const MoviePage: NextPage<Props> = ({ video }) => {
   return (
     <Layout>
-      <Text>Post: {item.snippet.title}</Text>
+      <Stack textAlign='center'>
+        <YouTube videoId={video.id.videoId} opts={opts} />
+        <Text>{video.snippet.title}</Text>
+      </Stack>
     </Layout>
   );
 };
@@ -31,10 +40,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const data = await res.json();
 
-  const item = data.items[0];
+  const video = data.items[0];
 
   return {
-    props: { item },
+    props: { video },
   };
 };
 
