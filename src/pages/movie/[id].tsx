@@ -1,18 +1,22 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { Text } from '@chakra-ui/react';
 
-export default function MoviePage() {
-  const router = useRouter();
-  const id = router.query.id;
+type Props = {
+  item: YoutubeMovie;
+};
+
+const MoviePage: NextPage<Props> = ({ item }) => {
   return (
     <Layout>
-      <Text>Post: {id}</Text>
+      <Text>Post: {item.snippet.title}</Text>
     </Layout>
   );
-}
+};
+
+export default MoviePage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(
@@ -40,7 +44,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
       '&key=' +
       process.env.YOUTUBE_API_KEY,
   );
-  const items = await res.json();
+  const data = await res.json();
+  const items = data.items;
 
   const paths = items.map((item: YoutubeMovie) => ({
     params: { id: item.snippet.title },
