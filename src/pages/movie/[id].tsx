@@ -29,7 +29,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       process.env.YOUTUBE_API_KEY,
   );
 
-  const item = await res.json();
+  const data = await res.json();
+
+  const item = data.items[0];
 
   return {
     props: { item },
