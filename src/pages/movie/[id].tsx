@@ -14,6 +14,24 @@ export default function MoviePage() {
   );
 }
 
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const res = await fetch(
+    'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
+      'UCW01sMEVYQdhcvkrhbxdBpw' + //リュウジさんのchannelId
+      '&maxResults=1' +
+      '&q=' +
+      params?.id +
+      '&key=' +
+      process.env.YOUTUBE_API_KEY,
+  );
+
+  const item = await res.json();
+
+  return {
+    props: { item },
+  };
+};
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
@@ -25,7 +43,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const items = await res.json();
 
   const paths = items.map((item: YoutubeMovie) => ({
-    params: { id: item.id.videoId },
+    params: { id: item.snippet.title },
   }));
 
   return { paths, fallback: true };
