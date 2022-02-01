@@ -3,7 +3,7 @@ import YouTube from 'react-youtube';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
-import { Text, Stack, Box } from '@chakra-ui/react';
+import { Text, Stack, Box, Spinner } from '@chakra-ui/react';
 
 type Props = {
   video: YoutubeMovie;
@@ -18,10 +18,16 @@ const MoviePage: NextPage<Props> = ({ video }) => {
   console.log(video);
   return (
     <Layout>
-      <Stack textAlign='center'>
-        <YouTube videoId={video.id.videoId} opts={opts} />
-        <Text>{video.snippet.title}</Text>
-      </Stack>
+      {video ? (
+        <Stack textAlign='center'>
+          <YouTube videoId={video.id.videoId} opts={opts} />
+          <Text>{video.snippet.title}</Text>
+        </Stack>
+      ) : (
+        <Box justifyContent='center'>
+          <Spinner />
+        </Box>
+      )}
     </Layout>
   );
 };
