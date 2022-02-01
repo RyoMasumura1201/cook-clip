@@ -14,6 +14,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     height: '225',
     width: '400',
   };
+  console.log(video);
   return (
     <Layout>
       <Stack textAlign='center'>
