@@ -14,6 +14,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     height: '225',
     width: '400',
   };
+  console.log('video');
   console.log(video);
   return (
     <Layout>
@@ -41,8 +42,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   );
 
   const data = await res.json();
+  console.log('data');
+  console.log(data);
 
   const video = data.items[0];
+  console.log('items[0]');
+  console.log(video);
 
   return {
     props: { video },
