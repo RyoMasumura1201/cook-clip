@@ -28,6 +28,8 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 export default MoviePage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  console.log('params');
+  console.log(params);
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
       CHANNEL_ID_OF_RYUJI +
@@ -58,6 +60,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const data = await res.json();
   const items = data.items;
 
+  console.log('items');
+  console.log(items);
   const paths = items.map((item: YoutubeMovie) => ({
     params: { id: item.snippet.title },
   }));
