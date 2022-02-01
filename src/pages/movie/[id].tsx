@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
 import YouTube from 'react-youtube';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
