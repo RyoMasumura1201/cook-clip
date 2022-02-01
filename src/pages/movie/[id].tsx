@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import YouTube from 'react-youtube';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
+import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
 import { Text, Stack, Box } from '@chakra-ui/react';
 
 type Props = {
@@ -29,7 +30,7 @@ export default MoviePage;
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
-      'UCW01sMEVYQdhcvkrhbxdBpw' + //リュウジさんのchannelId
+      CHANNEL_ID_OF_RYUJI + //リュウジさんのchannelId
       '&maxResults=1' +
       '&q=' +
       params?.id +

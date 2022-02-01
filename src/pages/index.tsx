@@ -3,6 +3,7 @@ import { GetStaticProps } from 'next';
 import Layout from '../components/Layout';
 import Movie from '../components/Movie';
 import { YoutubeMovie } from '../../type';
+import { CHANNEL_ID_OF_RYUJI } from '../../const';
 import { Wrap, WrapItem } from '@chakra-ui/react';
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
-      'UCW01sMEVYQdhcvkrhbxdBpw' + //リュウジさんのchannelId
+      CHANNEL_ID_OF_RYUJI +
       '&maxResults=10' +
       '&key=' +
       process.env.YOUTUBE_API_KEY,
