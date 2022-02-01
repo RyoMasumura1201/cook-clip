@@ -9,12 +9,11 @@ type Props = {
   video: YoutubeMovie;
 };
 
-const opts = {
-  height: '225',
-  width: '400',
-};
-
 const MoviePage: NextPage<Props> = ({ video }) => {
+  const opts = {
+    height: '225',
+    width: '400',
+  };
   return (
     <Layout>
       <Stack textAlign='center'>
