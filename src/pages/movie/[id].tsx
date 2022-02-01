@@ -30,7 +30,7 @@ export default MoviePage;
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
-      CHANNEL_ID_OF_RYUJI + //リュウジさんのchannelId
+      CHANNEL_ID_OF_RYUJI +
       '&maxResults=1' +
       '&q=' +
       params?.id +
@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(
     'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
-      'UCW01sMEVYQdhcvkrhbxdBpw' + //リュウジさんのchannelId
+      CHANNEL_ID_OF_RYUJI +
       '&maxResults=10' +
       '&key=' +
       process.env.YOUTUBE_API_KEY,
