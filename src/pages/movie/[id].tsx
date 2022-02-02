@@ -11,8 +11,8 @@ type Props = {
 
 const MoviePage: NextPage<Props> = ({ video }) => {
   const opts = {
-    height: '225',
-    width: '400',
+    height: '270',
+    width: '480',
   };
   console.log('video');
   console.log(video);
@@ -20,11 +20,13 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     <Layout>
       {video ? (
         <Stack textAlign='center'>
-          <YouTube videoId={video.id.videoId} opts={opts} />
+          <Box m='0 auto'>
+            <YouTube videoId={video.id.videoId} opts={opts} />
+          </Box>
           <Text>{video.snippet.title}</Text>
         </Stack>
       ) : (
-        <Box justifyContent='center'>
+        <Box m='0 auto'>
           <Spinner />
         </Box>
       )}
