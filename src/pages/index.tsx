@@ -5,6 +5,7 @@ import Movie from '../components/Movie';
 import { YoutubeMovie } from '../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../const';
 import { Wrap, WrapItem } from '@chakra-ui/react';
+import Search from '../components/Search';
 
 type Props = {
   items: YoutubeMovie[];
@@ -28,6 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Home: NextPage<Props> = ({ items }) => {
   return (
     <Layout isHome>
+      <Search />
       <Wrap justify='center' mt='4' spacing='10'>
         {items.map((item: YoutubeMovie) => (
           <WrapItem key={item.id.videoId}>
