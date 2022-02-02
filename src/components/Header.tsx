@@ -1,12 +1,28 @@
 import { memo } from 'react';
+import Link from 'next/link';
 import { Text } from '@chakra-ui/layout';
 
-const Header: React.VFC = () => {
+type Props = {
+  isHome?: boolean;
+};
+
+const Header: React.VFC<Props> = (props) => {
+  const { isHome } = props;
   return (
     <header style={{ textAlign: 'center' }}>
-      <Text fontSize='xx-large' fontWeight='bold'>
-        Cook Clip
-      </Text>
+      {isHome ? (
+        <Text fontSize='xx-large' fontWeight='bold'>
+          Cook Clip
+        </Text>
+      ) : (
+        <Link href='/'>
+          <a>
+            <Text fontSize='xx-large' fontWeight='bold'>
+              Cook Clip
+            </Text>
+          </a>
+        </Link>
+      )}
     </header>
   );
 };

@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<Props> = ({ items }) => {
   return (
-    <Layout>
+    <Layout isHome>
       <Wrap justify='center' mt='4' spacing='10'>
         {items.map((item: YoutubeMovie) => (
           <WrapItem key={item.id.videoId}>

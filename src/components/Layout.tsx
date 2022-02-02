@@ -5,13 +5,14 @@ import Footer from './Footer';
 import SEO from './SEO';
 
 type Props = {
+  isHome?: boolean;
   children: React.ReactNode;
 };
-const Layout: React.VFC<Props> = ({ children }) => {
+const Layout: React.VFC<Props> = ({ children, isHome }) => {
   return (
     <div className='site-wrapper'>
       <SEO />
-      <Header />
+      <Header isHome={isHome} />
       <main>{children}</main>
       <Footer />
     </div>
