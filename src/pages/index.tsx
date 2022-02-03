@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
+import React, { useState } from 'react';
+import { Wrap, WrapItem, HStack, Input, Button } from '@chakra-ui/react';
 import Layout from '../components/Layout';
 import Movie from '../components/Movie';
 import { YoutubeMovie } from '../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../const';
-import { Wrap, WrapItem } from '@chakra-ui/react';
-import Search from '../components/Search';
 
 type Props = {
   items: YoutubeMovie[];
@@ -27,9 +27,19 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 const Home: NextPage<Props> = ({ items }) => {
+  const [searchText, setSearchText] = useState('');
+  const onChangeSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.currentTarget.value);
+  };
+  const handleSearchMovie = (e: React.MouseEvent<HTMLButtonElement>) => {};
   return (
     <Layout isHome>
-      <Search />
+      <HStack w={{ base: '90%', md: '70%' }} m='0 auto'>
+        <Input value={searchText} onChange={onChangeSearchText} />
+        <Button colorScheme='orange' onClick={handleSearchMovie}>
+          検索
+        </Button>
+      </HStack>
       <Wrap justify='center' mt='4' spacing='10'>
         {items.map((item: YoutubeMovie) => (
           <WrapItem key={item.id.videoId}>
