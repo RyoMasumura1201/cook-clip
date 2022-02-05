@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
-import { Wrap, WrapItem, HStack, Input, Button } from '@chakra-ui/react';
+import { Wrap, WrapItem, HStack, Input, Button, Box } from '@chakra-ui/react';
 import Layout from '../components/Layout';
 import Movie from '../components/Movie';
 import { YoutubeMovie } from '../../type';
@@ -17,7 +17,7 @@ export const getStaticProps: GetStaticProps = async () => {
       CHANNEL_ID_OF_RYUJI +
       '&maxResults=10' +
       '&key=' +
-      process.env.YOUTUBE_API_KEY,
+      process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
   );
   const data = await res.json();
   const items = data.items;
@@ -28,10 +28,24 @@ export const getStaticProps: GetStaticProps = async () => {
 
 const Home: NextPage<Props> = ({ items }) => {
   const [searchText, setSearchText] = useState('');
+  const [movieList, setMovieList] = useState<YoutubeMovie[]>(items);
   const onChangeSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.currentTarget.value);
   };
-  const handleSearchMovie = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const handleSearchMovie = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const res = await fetch(
+      'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
+        CHANNEL_ID_OF_RYUJI +
+        '&maxResults=10' +
+        '&q=' +
+        searchText +
+        '&key=' +
+        process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
+    );
+    const data = await res.json();
+    const items = data.items;
+    setMovieList(items);
+  };
   return (
     <Layout isHome>
       <HStack w={{ base: '90%', md: '70%' }} m='0 auto'>
@@ -41,7 +55,7 @@ const Home: NextPage<Props> = ({ items }) => {
         </Button>
       </HStack>
       <Wrap justify='center' mt='4' spacing='10'>
-        {items.map((item: YoutubeMovie) => (
+        {movieList?.map((item: YoutubeMovie) => (
           <WrapItem key={item.id.videoId}>
             <Movie video={item} />
           </WrapItem>
