@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       '&q=' +
       params?.id +
       '&key=' +
-      process.env.YOUTUBE_API_KEY,
+      process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
   );
 
   const data = await res.json();
@@ -61,7 +61,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       CHANNEL_ID_OF_RYUJI +
       '&maxResults=10' +
       '&key=' +
-      process.env.YOUTUBE_API_KEY,
+      process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
   );
   const data = await res.json();
   const items = data.items;
