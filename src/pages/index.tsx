@@ -1,9 +1,10 @@
 import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
-import { Wrap, WrapItem, HStack, Input, Button, Box, Spinner, Text } from '@chakra-ui/react';
+import { Wrap, WrapItem, HStack, Input, Button, Text } from '@chakra-ui/react';
 import Layout from '../components/Layout';
 import Movie from '../components/Movie';
+import { Loading } from '../components/Loading';
 import { YoutubeMovie } from '../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../const';
 import { useSearchMovie } from '../hooks/useSearchMovie';
@@ -49,11 +50,11 @@ const Home: NextPage<Props> = ({ items }) => {
         </Button>
       </HStack>
       {isLoading ? (
-        <Box m='0 auto'>
-          <Spinner />
-        </Box>
+        <Loading />
       ) : isError ? (
-        <Text color='red'>エラーが発生しました</Text>
+        <Text color='red' textAlign='center'>
+          エラーが発生しました
+        </Text>
       ) : (
         <Wrap justify='center' mt='4' spacing='10'>
           {movieList?.map((item: YoutubeMovie) => (
