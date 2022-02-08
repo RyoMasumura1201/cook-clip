@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import YouTube from 'react-youtube';
-import { Text, Stack, Box } from '@chakra-ui/react';
+import { Text, Stack, Box, VStack } from '@chakra-ui/react';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
@@ -19,12 +19,14 @@ const MoviePage: NextPage<Props> = ({ video }) => {
   return (
     <Layout>
       {video ? (
-        <Stack textAlign='center'>
+        <VStack textAlign='center' spacing='3'>
+          <Text fontWeight='bold' fontSize='large'>
+            {video.snippet.title}
+          </Text>
           <Box m='0 auto'>
             <YouTube videoId={video.id.videoId} opts={opts} />
           </Box>
-          <Text>{video.snippet.title}</Text>
-        </Stack>
+        </VStack>
       ) : (
         <Loading />
       )}
