@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import YouTube from 'react-youtube';
-import { Text, Box, VStack } from '@chakra-ui/react';
+import { Text, Box, VStack, Button } from '@chakra-ui/react';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
@@ -16,6 +16,8 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     width: '480',
   };
 
+  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {};
+
   return (
     <Layout>
       {video ? (
@@ -26,6 +28,9 @@ const MoviePage: NextPage<Props> = ({ video }) => {
           <Box m='0 auto'>
             <YouTube videoId={video.id.videoId} opts={opts} />
           </Box>
+          <Button colorScheme='orange' onClick={handleMakeTimestamp}>
+            タイムスタンプ作成
+          </Button>
         </VStack>
       ) : (
         <Loading />
