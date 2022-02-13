@@ -16,7 +16,17 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     width: '480',
   };
 
-  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const iframe = document.getElementsByTagName('iframe');
+    console.log(iframe[0]);
+  };
+
+  let player;
+  const makeYTPlayer = () => {
+    console.log('YT');
+    player = new YT.Player('widget2');
+    console.log(player);
+  };
 
   return (
     <Layout>
@@ -26,7 +36,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             {video.snippet.title}
           </Text>
           <Box m='0 auto'>
-            <YouTube videoId={video.id.videoId} opts={opts} />
+            <YouTube videoId={video.id.videoId} opts={opts} onReady={makeYTPlayer} />
           </Box>
           <Button colorScheme='orange' onClick={handleMakeTimestamp}>
             タイムスタンプ作成
