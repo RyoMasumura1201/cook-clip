@@ -16,16 +16,12 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     width: '480',
   };
 
-  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const iframe = document.getElementsByTagName('iframe');
-    console.log(iframe[0]);
-  };
+  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {};
 
   let player;
   const makeYTPlayer = () => {
-    console.log('YT');
-    player = new YT.Player('widget2', {});
-    console.log(player);
+    const iframe = document.getElementsByTagName('iframe');
+    player = new YT.Player(iframe[0].id, {});
   };
 
   return (
