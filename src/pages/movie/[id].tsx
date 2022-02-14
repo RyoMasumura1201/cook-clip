@@ -24,7 +24,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
   let player;
   const makeYTPlayer = () => {
     console.log('YT');
-    player = new YT.Player('widget2');
+    player = new YT.Player('widget2', {});
     console.log(player);
   };
 
