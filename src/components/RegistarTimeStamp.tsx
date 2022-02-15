@@ -2,6 +2,7 @@ import {
   Text,
   Box,
   VStack,
+  Input,
   Button,
   Modal,
   ModalOverlay,
@@ -24,7 +25,12 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
       <ModalContent>
         <ModalHeader>タイムスタンプ登録</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>タイトル</ModalBody>
+        <ModalBody>
+          <VStack spacing='2'>
+            <Text fontWeight='bold'>タイトル</Text>
+            <Input />
+          </VStack>
+        </ModalBody>
 
         <ModalFooter>
           <Button colorScheme='blue' mr={3} onClick={onClose}>
