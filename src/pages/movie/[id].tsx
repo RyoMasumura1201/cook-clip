@@ -1,6 +1,19 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import YouTube from 'react-youtube';
-import { Text, Box, VStack, Button } from '@chakra-ui/react';
+import {
+  Text,
+  Box,
+  VStack,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+} from '@chakra-ui/react';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
@@ -11,6 +24,7 @@ type Props = {
 };
 
 const MoviePage: NextPage<Props> = ({ video }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const opts = {
     height: '270',
     width: '480',
@@ -25,22 +39,39 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     player.pauseVideo();
     const time = player.getCurrentTime();
     console.log(time);
+    onOpen();
   };
 
   return (
     <Layout>
       {video ? (
-        <VStack textAlign='center' spacing='3'>
-          <Text fontWeight='bold' fontSize='large'>
-            {video.snippet.title}
-          </Text>
-          <Box m='0 auto'>
-            <YouTube videoId={video.id.videoId} opts={opts} onReady={makeYTPlayer} />
-          </Box>
-          <Button colorScheme='orange' onClick={handleMakeTimestamp}>
-            タイムスタンプ作成
-          </Button>
-        </VStack>
+        <>
+          <VStack textAlign='center' spacing='3'>
+            <Text fontWeight='bold' fontSize='large'>
+              {video.snippet.title}
+            </Text>
+            <Box m='0 auto'>
+              <YouTube videoId={video.id.videoId} opts={opts} onReady={makeYTPlayer} />
+            </Box>
+            <Button colorScheme='orange' onClick={handleMakeTimestamp}>
+              タイムスタンプ作成
+            </Button>
+          </VStack>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>タイムスタンプ登録</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>タイトル</ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme='blue' mr={3} onClick={onClose}>
+                  登録
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </>
       ) : (
         <Loading />
       )}
