@@ -5,6 +5,7 @@ import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
 import { Loading } from '../../components/Loading';
+import YoutubePlayer from 'react-youtube';
 
 type Props = {
   video: YoutubeMovie;
@@ -16,12 +17,13 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     width: '480',
   };
 
-  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  let player: YT.Player;
+  const makeYTPlayer = (e: { target: YT.Player }) => {
+    player = e.target;
+  };
 
-  let player;
-  const makeYTPlayer = () => {
-    const iframe = document.getElementsByTagName('iframe');
-    player = new YT.Player(iframe[0].id, {});
+  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {
+    player.pauseVideo();
   };
 
   return (
