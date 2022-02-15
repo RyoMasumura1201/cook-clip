@@ -5,7 +5,6 @@ import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
 import { Loading } from '../../components/Loading';
-import YoutubePlayer from 'react-youtube';
 
 type Props = {
   video: YoutubeMovie;
@@ -24,6 +23,8 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 
   const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {
     player.pauseVideo();
+    const time = player.getCurrentTime();
+    console.log(time);
   };
 
   return (
