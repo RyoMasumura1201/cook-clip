@@ -1,23 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import YouTube from 'react-youtube';
-import {
-  Text,
-  Box,
-  VStack,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Text, Box, VStack, Button, useDisclosure } from '@chakra-ui/react';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
 import { Loading } from '../../components/Loading';
+import { RegistarTimeStamp } from '../../components/RegistarTimeStamp';
 
 type Props = {
   video: YoutubeMovie;
@@ -57,20 +45,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
               タイムスタンプ作成
             </Button>
           </VStack>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>タイムスタンプ登録</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>タイトル</ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                  登録
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          <RegistarTimeStamp isOpen={isOpen} onClose={onClose} />
         </>
       ) : (
         <Loading />
