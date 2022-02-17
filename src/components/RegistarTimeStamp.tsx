@@ -19,6 +19,10 @@ type Props = {
 };
 export const RegistarTimeStamp: React.VFC<Props> = (props) => {
   const { isOpen, onClose } = props;
+
+  const registerTimeStamp = () => {
+    onClose();
+  };
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -33,7 +37,7 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={onClose}>
+          <Button colorScheme='blue' mr={3} onClick={registerTimeStamp}>
             登録
           </Button>
         </ModalFooter>

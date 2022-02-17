@@ -6,6 +6,7 @@ import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
 import { Loading } from '../../components/Loading';
 import { RegistarTimeStamp } from '../../components/RegistarTimeStamp';
+import { useState } from 'react';
 
 type Props = {
   video: YoutubeMovie;
@@ -13,19 +14,19 @@ type Props = {
 
 const MoviePage: NextPage<Props> = ({ video }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [YTPlayer, setYTPlayer] = useState<YT.Player>();
   const opts = {
     height: '270',
     width: '480',
   };
 
-  let player: YT.Player;
   const makeYTPlayer = (e: { target: YT.Player }) => {
-    player = e.target;
+    setYTPlayer(e.target);
   };
 
   const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {
-    player.pauseVideo();
-    const time = player.getCurrentTime();
+    YTPlayer?.pauseVideo();
+    const time = YTPlayer?.getCurrentTime();
     console.log(time);
     onOpen();
   };
