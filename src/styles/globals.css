@@ -30,3 +30,7 @@ main {
   opacity: 0.5;
   cursor: 'pointer';
 }
+
+.user-image {
+  border-radius: 50%;
+}

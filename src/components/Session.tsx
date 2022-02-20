@@ -1,19 +1,29 @@
 import { memo } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { Text, Button } from '@chakra-ui/react';
-
+import { Text, Button, HStack } from '@chakra-ui/react';
+import Image from 'next/image';
 const Session: React.VFC = () => {
   const { data: session } = useSession();
   return (
     <>
       {session ? (
-        <>
-          <Text>{session.user?.name}</Text>
-          <Button onClick={() => signOut()}>ログアウト</Button>
-        </>
+        <HStack p={2}>
+          <Image
+            src={session.user?.image ?? ''}
+            width='35'
+            height='35'
+            alt='user image'
+            className='user-image'
+          />
+          <Button variant='link' onClick={() => signOut()}>
+            ログアウト
+          </Button>
+        </HStack>
       ) : (
         <>
-          <Button onClick={() => signIn()}>ログイン</Button>
+          <Button variant='link' onClick={() => signIn()}>
+            ログイン
+          </Button>
         </>
       )}
     </>
