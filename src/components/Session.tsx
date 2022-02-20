@@ -21,7 +21,7 @@ const Session: React.VFC = () => {
         </HStack>
       ) : (
         <>
-          <Button variant='link' onClick={() => signIn()}>
+          <Button variant='link' pt={3} onClick={() => signIn()}>
             ログイン
           </Button>
         </>
