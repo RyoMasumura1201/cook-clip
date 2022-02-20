@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { useSession, signIn } from 'next-auth/react';
 import YouTube from 'react-youtube';
 import { Text, Box, VStack, Button, useDisclosure } from '@chakra-ui/react';
 import Layout from '../../components/Layout';
@@ -13,6 +14,7 @@ type Props = {
 };
 
 const MoviePage: NextPage<Props> = ({ video }) => {
+  const { data: session } = useSession();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
   const opts = {
@@ -28,7 +30,11 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     YTPlayer?.pauseVideo();
     const time = YTPlayer?.getCurrentTime();
     console.log(time);
-    onOpen();
+    if (session) {
+      onOpen();
+    } else {
+      signIn();
+    }
   };
 
   return (
