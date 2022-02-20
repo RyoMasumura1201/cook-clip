@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import Link from 'next/link';
 import { Text } from '@chakra-ui/layout';
+import { HStack, Grid, GridItem } from '@chakra-ui/react';
 import Session from './Session';
 
 type Props = {
@@ -12,23 +13,31 @@ const Header: React.VFC<Props> = (props) => {
   return (
     <header style={{ textAlign: 'center' }}>
       {isHome ? (
-        <>
-          <Text fontSize='xx-large' fontWeight='bold'>
-            Cook Clip
-          </Text>
-          <Session />
-        </>
+        <Grid templateColumns='repeat(5, 1fr)'>
+          <GridItem colStart={3}>
+            <Text fontSize='xx-large' fontWeight='bold'>
+              Cook Clip
+            </Text>
+          </GridItem>
+          <GridItem>
+            <Session />
+          </GridItem>
+        </Grid>
       ) : (
-        <>
-          <Link href='/'>
-            <a>
-              <Text fontSize='xx-large' fontWeight='bold'>
-                Cook Clip
-              </Text>
-            </a>
-          </Link>
-          <Session />
-        </>
+        <Grid templateColumns='repeat(5, 1fr)'>
+          <GridItem colStart={3}>
+            <Link href='/'>
+              <a>
+                <Text fontSize='xx-large' fontWeight='bold'>
+                  Cook Clip
+                </Text>
+              </a>
+            </Link>
+          </GridItem>
+          <GridItem>
+            <Session />
+          </GridItem>
+        </Grid>
       )}
     </header>
   );
