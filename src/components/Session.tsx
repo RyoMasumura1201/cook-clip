@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import { Text, Button, HStack } from '@chakra-ui/react';
+import { Button, HStack } from '@chakra-ui/react';
 import Image from 'next/image';
 const Session: React.VFC = () => {
   const { data: session } = useSession();
