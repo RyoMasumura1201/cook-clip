@@ -27,27 +27,30 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
     setTitle(e.currentTarget.value);
   };
 
-  const registerTimeStamp = () => {
+  const registerTimeStamp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     onClose();
   };
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>タイムスタンプ登録</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <VStack spacing='2'>
-            <Text fontWeight='bold'>タイトル</Text>
-            <Input value={title} onChange={onChangeTitle} />
-          </VStack>
-        </ModalBody>
+        <form onSubmit={registerTimeStamp}>
+          <ModalHeader>タイムスタンプ登録</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <VStack spacing='2'>
+              <Text fontWeight='bold'>タイトル</Text>
+              <Input value={title} onChange={onChangeTitle} />
+            </VStack>
+          </ModalBody>
 
-        <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={registerTimeStamp}>
-            登録
-          </Button>
-        </ModalFooter>
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} type='submit'>
+              登録
+            </Button>
+          </ModalFooter>
+        </form>
       </ModalContent>
     </Modal>
   );
