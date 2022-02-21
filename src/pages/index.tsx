@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
-import { Wrap, WrapItem, HStack, Input, Button } from '@chakra-ui/react';
+import { Wrap, WrapItem, HStack, Input, Button, FormControl } from '@chakra-ui/react';
 import Layout from '../components/Layout';
 import Movie from '../components/Movie';
 import { Loading } from '../components/Loading';
@@ -36,7 +36,8 @@ const Home: NextPage<Props> = ({ items }) => {
   const onChangeSearchText = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.currentTarget.value);
   };
-  const handleSearchMovie = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSearchMovie = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const items = await searchMovie(searchText);
     if (!isError) {
       setMovieList([...items]);
@@ -44,12 +45,14 @@ const Home: NextPage<Props> = ({ items }) => {
   };
   return (
     <Layout isHome>
-      <HStack w={{ base: '90%', md: '70%' }} m='0 auto'>
-        <Input value={searchText} onChange={onChangeSearchText} />
-        <Button colorScheme='orange' onClick={handleSearchMovie}>
-          検索
-        </Button>
-      </HStack>
+      <form onSubmit={handleSearchMovie}>
+        <HStack w={{ base: '90%', md: '70%' }} m='0 auto'>
+          <Input value={searchText} onChange={onChangeSearchText} />
+          <Button colorScheme='orange' type='submit'>
+            検索
+          </Button>
+        </HStack>
+      </form>
       {isLoading ? (
         <Loading />
       ) : isError ? (
