@@ -19,7 +19,7 @@ const Header: React.VFC<Props> = (props) => {
               Cook Clip
             </Text>
           </GridItem>
-          <GridItem>
+          <GridItem colStart={4}>
             <Session />
           </GridItem>
         </Grid>
