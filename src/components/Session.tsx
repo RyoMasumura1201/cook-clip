@@ -15,13 +15,13 @@ const Session: React.VFC = () => {
             alt='user image'
             className='user-image'
           />
-          <Button variant='link' onClick={() => signOut()} ml='2' mr='2'>
+          <Button variant='link' onClick={() => signOut()} ml='3' mr='3'>
             ログアウト
           </Button>
         </Flex>
       ) : (
         <Flex pt='4' pb='3'>
-          <Button variant='link' onClick={() => signIn()} mr='2'>
+          <Button variant='link' onClick={() => signIn()} mr='3'>
             ログイン
           </Button>
         </Flex>
