@@ -26,7 +26,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     setYTPlayer(e.target);
   };
 
-  const handleMakeTimestamp = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleMakeTimestamp = () => {
     YTPlayer?.pauseVideo();
     const time = YTPlayer?.getCurrentTime();
     console.log(time);

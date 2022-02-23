@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
-import { Wrap, WrapItem, HStack, Input, Button, FormControl } from '@chakra-ui/react';
+import { Wrap, WrapItem, HStack, Input, Button } from '@chakra-ui/react';
 import Layout from '../components/Layout';
 import Movie from '../components/Movie';
 import { Loading } from '../components/Loading';
