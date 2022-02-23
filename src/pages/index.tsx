@@ -58,9 +58,9 @@ const Home: NextPage<Props> = ({ items }) => {
       ) : isError ? (
         <Error />
       ) : (
-        <Wrap justify='center' mt='4' spacing='10'>
+        <Wrap justify='center' mt='4' spacing='1'>
           {movieList?.map((item: YoutubeMovie) => (
-            <WrapItem key={item.id.videoId}>
+            <WrapItem key={item.id.videoId} m='0 auto'>
               <Movie video={item} />
             </WrapItem>
           ))}
