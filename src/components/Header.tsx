@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import Link from 'next/link';
 import { Text } from '@chakra-ui/layout';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Flex, Spacer } from '@chakra-ui/react';
 import Session from './Session';
 
 type Props = {
@@ -13,31 +13,25 @@ const Header: React.VFC<Props> = (props) => {
   return (
     <header style={{ textAlign: 'center' }}>
       {isHome ? (
-        <Grid templateColumns='repeat(5, 1fr)'>
-          <GridItem colStart={3}>
-            <Text fontSize='xx-large' fontWeight='bold'>
-              Cook Clip
-            </Text>
-          </GridItem>
-          <GridItem colStart={4}>
-            <Session />
-          </GridItem>
-        </Grid>
+        <Flex>
+          <Text fontSize='xx-large' fontWeight='bold' whiteSpace='nowrap' ml='3'>
+            Cook Clip
+          </Text>
+          <Spacer />
+          <Session />
+        </Flex>
       ) : (
-        <Grid templateColumns='repeat(5, 1fr)'>
-          <GridItem colStart={3}>
-            <Link href='/'>
-              <a>
-                <Text fontSize='xx-large' fontWeight='bold'>
-                  Cook Clip
-                </Text>
-              </a>
-            </Link>
-          </GridItem>
-          <GridItem>
-            <Session />
-          </GridItem>
-        </Grid>
+        <Flex>
+          <Link href='/'>
+            <a>
+              <Text fontSize='xx-large' fontWeight='bold' whiteSpace='nowrap' ml='3'>
+                Cook Clip
+              </Text>
+            </a>
+          </Link>
+          <Spacer />
+          <Session />
+        </Flex>
       )}
     </header>
   );

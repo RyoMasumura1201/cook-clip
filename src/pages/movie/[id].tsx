@@ -45,7 +45,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             <Text fontWeight='bold' fontSize='large' mb='3'>
               {video.snippet.title}
             </Text>
-            <AspectRatio ratio={16 / 9} maxW='640px' minW='375px' m='0 auto'>
+            <AspectRatio ratio={16 / 9} maxW='640px' m='0 auto'>
               <YouTube videoId={video.id.videoId} opts={opts} onReady={makeYTPlayer} />
             </AspectRatio>
             <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3'>
