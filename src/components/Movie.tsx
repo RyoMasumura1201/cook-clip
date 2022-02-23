@@ -2,7 +2,7 @@ import { memo } from 'react';
 import Link from 'next/link';
 import { YoutubeMovie } from '../../type';
 import YouTube from 'react-youtube';
-import { Box, Stack, AspectRatio, Text, Center } from '@chakra-ui/react';
+import { Box, Center } from '@chakra-ui/react';
 
 type Props = {
   video: YoutubeMovie;

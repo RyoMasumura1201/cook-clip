@@ -14,7 +14,7 @@ const Header: React.VFC<Props> = (props) => {
     <header style={{ textAlign: 'center' }}>
       {isHome ? (
         <Flex>
-          <Text fontSize='x-large' fontWeight='bold' whiteSpace='nowrap' ml='3'>
+          <Text fontSize='xx-large' fontWeight='bold' whiteSpace='nowrap' ml='3'>
             Cook Clip
           </Text>
           <Spacer />
@@ -24,7 +24,7 @@ const Header: React.VFC<Props> = (props) => {
         <Flex>
           <Link href='/'>
             <a>
-              <Text fontSize='x-large' fontWeight='bold' whiteSpace='nowrap' ml='3'>
+              <Text fontSize='xx-large' fontWeight='bold' whiteSpace='nowrap' ml='3'>
                 Cook Clip
               </Text>
             </a>
