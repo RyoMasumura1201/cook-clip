@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useSession, signIn } from 'next-auth/react';
 import YouTube from 'react-youtube';
-import { Text, Box, VStack, Button, useDisclosure } from '@chakra-ui/react';
+import { Text, Box, Button, useDisclosure, AspectRatio } from '@chakra-ui/react';
 import Layout from '../../components/Layout';
 import { YoutubeMovie } from '../../../type';
 import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
@@ -18,8 +18,8 @@ const MoviePage: NextPage<Props> = ({ video }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
   const opts = {
-    height: '270',
-    width: '480',
+    width: '100%',
+    height: '100%',
   };
 
   const makeYTPlayer = (e: { target: YT.Player }) => {
@@ -41,17 +41,19 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     <Layout>
       {video ? (
         <>
-          <VStack textAlign='center' spacing='3'>
-            <Text fontWeight='bold' fontSize='large'>
+          <Box textAlign='center'>
+            <Text fontWeight='bold' fontSize='large' mb='3'>
               {video.snippet.title}
             </Text>
-            <Box m='0 auto'>
+            {/* <Box m='0 auto'> */}
+            <AspectRatio ratio={16 / 9} maxW='640px' minW='375px' m='0 auto'>
               <YouTube videoId={video.id.videoId} opts={opts} onReady={makeYTPlayer} />
-            </Box>
-            <Button colorScheme='orange' onClick={handleMakeTimestamp}>
+            </AspectRatio>
+            {/* </Box> */}
+            <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3'>
               タイムスタンプ作成
             </Button>
-          </VStack>
+          </Box>
           <RegistarTimeStamp isOpen={isOpen} onClose={onClose} />
         </>
       ) : (
