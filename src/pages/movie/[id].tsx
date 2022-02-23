@@ -45,11 +45,9 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             <Text fontWeight='bold' fontSize='large' mb='3'>
               {video.snippet.title}
             </Text>
-            {/* <Box m='0 auto'> */}
             <AspectRatio ratio={16 / 9} maxW='640px' minW='375px' m='0 auto'>
               <YouTube videoId={video.id.videoId} opts={opts} onReady={makeYTPlayer} />
             </AspectRatio>
-            {/* </Box> */}
             <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3'>
               タイムスタンプ作成
             </Button>
