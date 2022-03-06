@@ -17,7 +17,8 @@ export default NextAuth({
       return baseUrl;
     },
     async signIn({ user }) {
-      const res = await fetch('http://localhost:8080/users', {
+      const url = process.env.BACKEND_URL + '/users';
+      const res = await fetch(url, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
