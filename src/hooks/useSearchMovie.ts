@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
 export const useSearchMovie = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const searchMovie = async (searchText: string) => {
+  const searchMovie = useCallback(async (searchText: string) => {
     try {
       setIsLoading(true);
       const res = await fetch(
@@ -24,7 +24,7 @@ export const useSearchMovie = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   return { isLoading, isError, searchMovie };
 };
