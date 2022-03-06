@@ -2,7 +2,7 @@ import { memo } from 'react';
 import Link from 'next/link';
 import { Text } from '@chakra-ui/layout';
 import { Flex, Spacer } from '@chakra-ui/react';
-import Session from './Session';
+import Session from '@/components/Session';
 
 type Props = {
   isHome?: boolean;

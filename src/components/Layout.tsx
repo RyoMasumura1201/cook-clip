@@ -1,8 +1,7 @@
 import { memo } from 'react';
-
-import Header from './Header';
-import Footer from './Footer';
-import SEO from './SEO';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
 
 type Props = {
   isHome?: boolean;

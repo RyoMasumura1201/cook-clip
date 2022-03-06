@@ -2,13 +2,13 @@ import type { NextPage } from 'next';
 import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
 import { Wrap, WrapItem, HStack, Input, Button } from '@chakra-ui/react';
-import Layout from '../components/Layout';
-import Movie from '../components/Movie';
-import { Loading } from '../components/Loading';
-import { Error } from '../components/Error';
-import { YoutubeMovie } from '../../type';
-import { CHANNEL_ID_OF_RYUJI } from '../../const';
-import { useSearchMovie } from '../hooks/useSearchMovie';
+import Layout from '@/components/Layout';
+import Movie from '@/components/Movie';
+import { Loading } from '@/components/Loading';
+import { Error } from '@/components/Error';
+import { YoutubeMovie } from '@/types/index';
+import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
+import { useSearchMovie } from '@/hooks/useSearchMovie';
 
 type Props = {
   items: YoutubeMovie[];

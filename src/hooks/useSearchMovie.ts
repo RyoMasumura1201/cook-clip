@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CHANNEL_ID_OF_RYUJI } from '../../const';
+import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
 export const useSearchMovie = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);

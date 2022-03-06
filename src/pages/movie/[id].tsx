@@ -2,11 +2,11 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useSession, signIn } from 'next-auth/react';
 import YouTube from 'react-youtube';
 import { Text, Box, Button, useDisclosure, AspectRatio } from '@chakra-ui/react';
-import Layout from '../../components/Layout';
-import { YoutubeMovie } from '../../../type';
-import { CHANNEL_ID_OF_RYUJI } from '../../..//const';
-import { Loading } from '../../components/Loading';
-import { RegistarTimeStamp } from '../../components/RegistarTimeStamp';
+import Layout from '@/components/Layout';
+import { YoutubeMovie } from '@/types/index';
+import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
+import { Loading } from '@/components/Loading';
+import { RegistarTimeStamp } from '@/components/RegistarTimeStamp';
 import { useState } from 'react';
 
 type Props = {
