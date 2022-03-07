@@ -17,7 +17,7 @@ export default NextAuth({
       return baseUrl;
     },
     async signIn({ user }) {
-      const url = process.env.BACKEND_URL + '/users';
+      const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/users';
       const res = await fetch(url, {
         method: 'POST',
         headers: {

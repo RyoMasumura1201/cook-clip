@@ -14,13 +14,18 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
+import { useSession } from 'next-auth/react';
+
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   time: number | undefined;
+  videoId: string;
 };
 export const RegistarTimeStamp: React.VFC<Props> = (props) => {
-  const { isOpen, onClose, time } = props;
+  const { isOpen, onClose, time, videoId } = props;
+
+  const { data: session } = useSession();
 
   const [title, setTitle] = useState('');
 
@@ -28,9 +33,24 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
     setTitle(e.currentTarget.value);
   };
 
-  const registerTimeStamp = (e: React.FormEvent<HTMLFormElement>) => {
+  const registerTimeStamp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(time);
+
+    const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmarks';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: title,
+        startAt: time,
+        movieId: videoId,
+        email: session?.user?.email,
+      }),
+    });
+    console.log(res);
     onClose();
   };
   return (

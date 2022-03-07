@@ -52,7 +52,12 @@ const MoviePage: NextPage<Props> = ({ video }) => {
               タイムスタンプ作成
             </Button>
           </Box>
-          <RegistarTimeStamp isOpen={isOpen} onClose={onClose} time={time} />
+          <RegistarTimeStamp
+            isOpen={isOpen}
+            onClose={onClose}
+            time={time}
+            videoId={video.id.videoId}
+          />
         </>
       ) : (
         <Loading />
