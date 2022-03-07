@@ -17,6 +17,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
+  const [time, setTime] = useState<number>();
   const opts = {
     width: '100%',
     height: '100%',
@@ -28,8 +29,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 
   const handleMakeTimestamp = () => {
     YTPlayer?.pauseVideo();
-    const time = YTPlayer?.getCurrentTime();
-    console.log(time);
+    setTime(YTPlayer?.getCurrentTime());
     if (session) {
       onOpen();
     } else {
@@ -52,7 +52,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
               タイムスタンプ作成
             </Button>
           </Box>
-          <RegistarTimeStamp isOpen={isOpen} onClose={onClose} />
+          <RegistarTimeStamp isOpen={isOpen} onClose={onClose} time={time} />
         </>
       ) : (
         <Loading />

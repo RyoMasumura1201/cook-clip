@@ -17,9 +17,10 @@ import React, { useState } from 'react';
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  time: number | undefined;
 };
 export const RegistarTimeStamp: React.VFC<Props> = (props) => {
-  const { isOpen, onClose } = props;
+  const { isOpen, onClose, time } = props;
 
   const [title, setTitle] = useState('');
 
@@ -29,6 +30,7 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
 
   const registerTimeStamp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(time);
     onClose();
   };
   return (
