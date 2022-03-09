@@ -46,7 +46,7 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
       body: JSON.stringify({
         title: title,
         startAt: time,
-        movieId: videoId,
+        videoId: videoId,
         email: session?.user?.email,
       }),
     });
