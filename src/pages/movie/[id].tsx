@@ -100,7 +100,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const items = data.items;
 
   const paths = items.map((item: YoutubeMovie) => ({
-    params: { id: item.snippet.title },
+    params: { id: item.id.videoId },
   }));
 
   return { paths, fallback: true };
