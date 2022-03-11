@@ -37,7 +37,7 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
     e.preventDefault();
     console.log(time);
 
-    const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmarks';
+    const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmark';
     const res = await fetch(url, {
       method: 'POST',
       headers: {
