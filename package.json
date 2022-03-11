@@ -8,7 +8,8 @@
     "lint": "next lint --dir src",
     "lint:fix": "eslint src --ext .js,jsx,.ts,.tsx --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
-    "prismaDev": "dotenv -e .env.local prisma migrate dev "
+    "prismaDev": "dotenv -e .env.local prisma migrate dev ",
+    "prismaStudio": "dotenv -e .env.local prisma studio "
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.1",
