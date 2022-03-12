@@ -2,6 +2,7 @@ import { SessionProvider } from 'next-auth/react';
 import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import { Session } from 'next-auth';
+import { RecoilRoot } from 'recoil';
 
 type Props = {
   children: React.ReactNode;
@@ -10,7 +11,9 @@ type Props = {
 export const AppProvider = ({ children, session }: Props) => {
   return (
     <SessionProvider session={session}>
-      <ChakraProvider>{children}</ChakraProvider>
+      <RecoilRoot>
+        <ChakraProvider>{children}</ChakraProvider>
+      </RecoilRoot>
     </SessionProvider>
   );
 };

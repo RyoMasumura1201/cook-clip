@@ -1,4 +1,7 @@
 import Axios, { AxiosRequestConfig } from 'axios';
+import { useRecoilState } from 'recoil';
+import { notificationListState } from '@/stores/notifications';
+import { nanoid } from 'nanoid';
 
 const requestIntercepter = (config: AxiosRequestConfig) => {
   config.headers = { 'Content-Type': 'application/json' };
@@ -13,7 +16,13 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    const message = error.response?.data?.message || error.message;
+    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
+    const message: string = error.response?.data?.message || error.message;
+    setNotificationList([
+      ...notificationList,
+      { id: nanoid(), type: 'error', title: 'Error', message },
+    ]);
+
     return Promise.reject(error);
   },
 );
