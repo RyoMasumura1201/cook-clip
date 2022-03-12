@@ -1,6 +1,5 @@
 import {
   Text,
-  Box,
   VStack,
   Input,
   Button,
@@ -15,6 +14,8 @@ import {
 import React, { useState } from 'react';
 
 import { useSession } from 'next-auth/react';
+
+import { axios } from '@/lib/axios';
 
 type Props = {
   isOpen: boolean;
@@ -38,17 +39,11 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
     console.log(time);
 
     const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmark';
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: title,
-        startAt: time,
-        videoId: videoId,
-        email: session?.user?.email,
-      }),
+    const res = await axios.post(url, {
+      title: title,
+      startAt: time,
+      videoId: videoId,
+      email: session?.user?.email,
     });
     console.log(res);
     onClose();
