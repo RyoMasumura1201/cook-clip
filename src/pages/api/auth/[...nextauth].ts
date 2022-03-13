@@ -16,11 +16,12 @@ export default NextAuth({
       else if (url.startsWith('/')) return new URL(url, baseUrl).toString();
       return baseUrl;
     },
-    async signIn({ user }) {
+    async session({ session }) {
+      const user = session.user;
       const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/user';
       const res = await axios.post(url, { name: user.name, email: user.email });
-      console.log(res);
-      return true;
+      session.user.id = res.data.id;
+      return Promise.resolve(session);
     },
   },
 });
