@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 
-import { axios } from '@/lib/axios';
+import { useAxios } from '@/lib/axios';
 
 type Props = {
   isOpen: boolean;
@@ -29,6 +29,8 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
   const { data: session } = useSession();
 
   const [title, setTitle] = useState('');
+
+  const { axios } = useAxios();
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.currentTarget.value);

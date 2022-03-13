@@ -8,21 +8,28 @@ const requestIntercepter = (config: AxiosRequestConfig) => {
   return config;
 };
 
-export const axios = Axios.create({});
+export const useAxios = () => {
+  const axios = Axios.create({});
+  const [notificationList, setNotificationList] = useRecoilState(notificationListState);
+  axios.interceptors.request.use(requestIntercepter);
+  axios.interceptors.response.use(
+    (response) => {
+      return response.data;
+    },
+    (error) => {
+      const message: string = error.response?.data?.message || error.message;
+      setNotificationList([
+        ...notificationList,
+        {
+          id: nanoid(),
+          type: 'error',
+          title: 'Error',
+          message,
+        },
+      ]);
 
-axios.interceptors.request.use(requestIntercepter);
-axios.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
-  (error) => {
-    const [notificationList, setNotificationList] = useRecoilState(notificationListState);
-    const message: string = error.response?.data?.message || error.message;
-    setNotificationList([
-      ...notificationList,
-      { id: nanoid(), type: 'error', title: 'Error', message },
-    ]);
-
-    return Promise.reject(error);
-  },
-);
+      return Promise.reject(error);
+    },
+  );
+  return { axios };
+};
