@@ -60,7 +60,7 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
             <VStack spacing='2'>
               <Text fontWeight='bold'>タイトル</Text>
               <Input {...register('title')} />
-              <Text>{formState.errors.title?.message}</Text>
+              <Text color='red.500'>{formState.errors.title?.message}</Text>
             </VStack>
           </ModalBody>
 
