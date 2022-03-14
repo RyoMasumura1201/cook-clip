@@ -17,7 +17,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
-  const [time, setTime] = useState<number>();
+  const [startAt, setStartAt] = useState<number>();
   const opts = {
     width: '100%',
     height: '100%',
@@ -29,7 +29,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 
   const handleMakeTimestamp = () => {
     YTPlayer?.pauseVideo();
-    setTime(YTPlayer?.getCurrentTime());
+    setStartAt(YTPlayer?.getCurrentTime());
     if (session) {
       onOpen();
     } else {
@@ -55,7 +55,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
           <RegistarTimeStamp
             isOpen={isOpen}
             onClose={onClose}
-            time={time}
+            startAt={startAt}
             videoId={video.id.videoId}
           />
         </>

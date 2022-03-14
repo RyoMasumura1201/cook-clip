@@ -11,40 +11,39 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
-
 import { useSession } from 'next-auth/react';
-
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { useAxios } from '@/lib/axios';
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  time: number | undefined;
+  startAt: number | undefined;
   videoId: string;
 };
 export const RegistarTimeStamp: React.VFC<Props> = (props) => {
-  const { isOpen, onClose, time, videoId } = props;
+  const { isOpen, onClose, startAt, videoId } = props;
 
   const { data: session } = useSession();
 
-  const [title, setTitle] = useState('');
-
   const { axios } = useAxios();
+  const schema = z.object({ title: z.string().min(1, '1文字以上入力してください') });
+  type InputType = z.infer<typeof schema>;
+  const { register, handleSubmit, formState } = useForm<InputType>({
+    resolver: zodResolver(schema),
+  });
 
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value);
-  };
-
-  const registerTimeStamp = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(time);
+  const registerTimeStamp: SubmitHandler<InputType> = async (data) => {
+    console.log(startAt);
+    const { title } = data;
 
     const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmark';
     const res = await axios.post(url, {
-      title: title,
-      startAt: time,
-      videoId: videoId,
+      title,
+      startAt,
+      videoId,
       email: session?.user?.email,
     });
     console.log(res);
@@ -54,13 +53,14 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <form onSubmit={registerTimeStamp}>
+        <form onSubmit={handleSubmit(registerTimeStamp)}>
           <ModalHeader>タイムスタンプ登録</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing='2'>
               <Text fontWeight='bold'>タイトル</Text>
-              <Input value={title} onChange={onChangeTitle} />
+              <Input {...register('title')} />
+              <Text>{formState.errors.title?.message}</Text>
             </VStack>
           </ModalBody>
 
