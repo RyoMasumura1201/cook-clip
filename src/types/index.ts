@@ -13,3 +13,15 @@ export type YoutubeMovie = {
     publishTime: string;
   };
 };
+
+export type SearchMovieResult = {
+  kind: string;
+  etag: string;
+  nextPageToken: string;
+  reginCode: string;
+  pageInfo: {
+    totalResults: number;
+    resultsPerPage: number;
+  };
+  items: YoutubeMovie[];
+};
