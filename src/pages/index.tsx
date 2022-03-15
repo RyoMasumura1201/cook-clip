@@ -39,7 +39,7 @@ const Home: NextPage<Props> = ({ items }) => {
   const handleSearchMovie = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const items = await searchMovie(searchText);
-    if (!isError) {
+    if (!isError && items) {
       setMovieList([...items]);
     }
   };
