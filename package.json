@@ -29,7 +29,6 @@
     "react-query": "^3.34.16",
     "react-youtube": "^7.14.0",
     "recoil": "^0.6.1",
-    "swr": "^1.2.0",
     "zod": "^3.13.4"
   },
   "devDependencies": {
