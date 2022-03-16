@@ -10,6 +10,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  VisuallyHiddenInput,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -28,27 +29,42 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
 
   const { data: session } = useSession();
 
+  const email = session?.user.email as string;
+
   const { axios } = useAxios();
-  const schema = z.object({ title: z.string().min(1, '1文字以上入力してください') });
+  const schema = z.object({
+    title: z.string().min(1, '1文字以上入力してください'),
+    startAt: z
+      .string()
+      .refine((v) => {
+        return !isNaN(Number(v));
+      })
+      .transform((v) => {
+        return Number(v);
+      }),
+    videoId: z.string(),
+    email: z.string(),
+  });
   type InputType = z.infer<typeof schema>;
   const { register, handleSubmit, formState } = useForm<InputType>({
     resolver: zodResolver(schema),
   });
 
   const registerBookmark: SubmitHandler<InputType> = async (data) => {
-    console.log(startAt);
-    const { title } = data;
+    console.log('data');
+    console.log(data);
 
     const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmark';
     const res = await axios.post(url, {
-      title,
-      startAt,
-      videoId,
-      email: session?.user?.email,
+      title: data.title,
+      startAt: data.startAt,
+      videoId: data.videoId,
+      email: data.email,
     });
     console.log(res);
     onClose();
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -60,6 +76,9 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
             <VStack spacing='2'>
               <Text fontWeight='bold'>タイトル</Text>
               <Input {...register('title')} />
+              <VisuallyHiddenInput {...register('startAt')} defaultValue={startAt} />
+              <VisuallyHiddenInput {...register('videoId')} defaultValue={videoId} />
+              <VisuallyHiddenInput {...register('email')} defaultValue={email} />
               <Text color='red.500'>{formState.errors.title?.message}</Text>
             </VStack>
           </ModalBody>
