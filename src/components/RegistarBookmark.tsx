@@ -23,7 +23,7 @@ type Props = {
   startAt: number | undefined;
   videoId: string;
 };
-export const RegistarTimeStamp: React.VFC<Props> = (props) => {
+export const RegistarBookmark: React.VFC<Props> = (props) => {
   const { isOpen, onClose, startAt, videoId } = props;
 
   const { data: session } = useSession();
@@ -35,7 +35,7 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
     resolver: zodResolver(schema),
   });
 
-  const registerTimeStamp: SubmitHandler<InputType> = async (data) => {
+  const registerBookmark: SubmitHandler<InputType> = async (data) => {
     console.log(startAt);
     const { title } = data;
 
@@ -53,7 +53,7 @@ export const RegistarTimeStamp: React.VFC<Props> = (props) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <form onSubmit={handleSubmit(registerTimeStamp)}>
+        <form onSubmit={handleSubmit(registerBookmark)}>
           <ModalHeader>タイムスタンプ登録</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

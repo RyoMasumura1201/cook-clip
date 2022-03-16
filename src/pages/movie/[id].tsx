@@ -6,7 +6,7 @@ import Layout from '@/components/Layout';
 import { YoutubeMovie } from '@/types/index';
 import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
 import { Loading } from '@/components/Loading';
-import { RegistarTimeStamp } from '@/components/RegistarTimeStamp';
+import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useState } from 'react';
 
 type Props = {
@@ -52,7 +52,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
               タイムスタンプ作成
             </Button>
           </Box>
-          <RegistarTimeStamp
+          <RegistarBookmark
             isOpen={isOpen}
             onClose={onClose}
             startAt={startAt}
