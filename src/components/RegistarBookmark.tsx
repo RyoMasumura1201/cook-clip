@@ -13,10 +13,10 @@ import {
   VisuallyHiddenInput,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useAxios } from '@/lib/axios';
+import { useRegisterBookmark } from '@/hooks/useRegisterBookmark';
 
 type Props = {
   isOpen: boolean;
@@ -28,10 +28,8 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
   const { isOpen, onClose, startAt, videoId } = props;
 
   const { data: session } = useSession();
-
   const email = session?.user.email as string;
 
-  const { axios } = useAxios();
   const schema = z.object({
     title: z.string().min(1, '1文字以上入力してください'),
     startAt: z
@@ -50,20 +48,7 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
     resolver: zodResolver(schema),
   });
 
-  const registerBookmark: SubmitHandler<InputType> = async (data) => {
-    console.log('data');
-    console.log(data);
-
-    const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmark';
-    const res = await axios.post(url, {
-      title: data.title,
-      startAt: data.startAt,
-      videoId: data.videoId,
-      email: data.email,
-    });
-    console.log(res);
-    onClose();
-  };
+  const { registerBookmark } = useRegisterBookmark(onClose);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
