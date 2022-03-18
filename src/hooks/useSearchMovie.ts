@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react';
 import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
 import { useAxios } from '@/lib/axios';
 import { SearchMovieResult } from '@/types';
