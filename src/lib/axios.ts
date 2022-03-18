@@ -1,7 +1,5 @@
 import Axios, { AxiosRequestConfig } from 'axios';
-import { useRecoilState } from 'recoil';
-import { notificationListState } from '@/stores/notifications';
-import { nanoid } from 'nanoid';
+import { useNotificationStore } from '@/stores/notifications';
 
 const requestIntercepter = (config: AxiosRequestConfig) => {
   config.headers = { 'Content-Type': 'application/json' };
@@ -10,7 +8,7 @@ const requestIntercepter = (config: AxiosRequestConfig) => {
 
 export const useAxios = () => {
   const axios = Axios.create({});
-  const [notificationList, setNotificationList] = useRecoilState(notificationListState);
+  const { addNotificationStore } = useNotificationStore();
   axios.interceptors.request.use(requestIntercepter);
   axios.interceptors.response.use(
     (response) => {
@@ -18,15 +16,7 @@ export const useAxios = () => {
     },
     (error) => {
       const message: string = error.response?.data?.message || error.message;
-      setNotificationList([
-        ...notificationList,
-        {
-          id: nanoid(),
-          type: 'error',
-          title: 'Error',
-          message,
-        },
-      ]);
+      addNotificationStore({ type: 'error', message });
 
       return Promise.reject(error);
     },
