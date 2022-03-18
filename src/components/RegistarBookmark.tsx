@@ -70,7 +70,7 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} type='submit'>
+            <Button colorScheme='blue' mr={3} type='submit' isLoading={registerBookmark.isLoading}>
               登録
             </Button>
           </ModalFooter>
