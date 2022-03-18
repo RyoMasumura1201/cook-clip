@@ -1,5 +1,5 @@
 import { useAxios } from '@/lib/axios';
-import { SubmitHandler } from 'react-hook-form';
+import { useMutation } from 'react-query';
 
 type InputType = {
   startAt: number;
@@ -12,18 +12,17 @@ export const useRegisterBookmark = (onClose: () => void) => {
 
   const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmark';
 
-  const registerBookmark: SubmitHandler<InputType> = async (data) => {
-    const { startAt, videoId, title, email } = data;
-    console.log(startAt);
-    const res = await axios.post(url, {
-      title,
-      startAt,
-      videoId,
-      email: email,
-    });
-    console.log(res);
-    onClose();
+  const registerBookmark = async (data: InputType) => {
+    return axios.post(url, data);
   };
 
-  return { registerBookmark };
+  const useHandleRegisterBookmark = () => {
+    return useMutation(registerBookmark, {
+      onSuccess: () => {
+        onClose();
+      },
+    });
+  };
+
+  return { useHandleRegisterBookmark };
 };

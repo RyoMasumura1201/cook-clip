@@ -48,13 +48,14 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
     resolver: zodResolver(schema),
   });
 
-  const { registerBookmark } = useRegisterBookmark(onClose);
+  const { useHandleRegisterBookmark } = useRegisterBookmark(onClose);
+  const registerBookmark = useHandleRegisterBookmark();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <form onSubmit={handleSubmit(registerBookmark)}>
+        <form onSubmit={handleSubmit(async (data) => registerBookmark.mutateAsync(data))}>
           <ModalHeader>タイムスタンプ登録</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
