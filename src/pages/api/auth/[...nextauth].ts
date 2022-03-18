@@ -18,7 +18,7 @@ export default NextAuth({
     },
     async session({ session }) {
       const user = session.user;
-      const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/user';
+      const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/users';
       const res = await axios.post(url, { name: user.name, email: user.email });
       session.user.id = res.data.id;
       return Promise.resolve(session);
