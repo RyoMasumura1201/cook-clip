@@ -93,7 +93,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(
-    'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
+    'https://www.googleapis.com/youtube/v3/search?part=id&channelId=' +
       CHANNEL_ID_OF_RYUJI +
       '&maxResults=10' +
       '&key=' +
