@@ -8,6 +8,7 @@ import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
 import { Loading } from '@/components/Loading';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useState } from 'react';
+// import { useFetchBookmark } from '@/hooks/useFetchBookmark';
 
 type Props = {
   video: YoutubeMovie;
@@ -15,6 +16,7 @@ type Props = {
 
 const MoviePage: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
+  // const { isLoading, isError, data, refetch } = useFetchBookmark(video.id.videoId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
   const [startAt, setStartAt] = useState<number>();
@@ -51,6 +53,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3'>
               タイムスタンプ作成
             </Button>
+            {/* {data} */}
           </Box>
           <RegistarBookmark
             isOpen={isOpen}

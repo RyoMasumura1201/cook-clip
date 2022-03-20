@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import axios from 'axios';
+import { signIn } from 'next-auth/react';
 
 export default NextAuth({
   providers: [
@@ -17,11 +18,16 @@ export default NextAuth({
       return baseUrl;
     },
     async session({ session }) {
+      console.log('session');
       const user = session.user;
       const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/users';
       const res = await axios.post(url, { name: user.name, email: user.email });
       session.user.id = res.data.id;
       return Promise.resolve(session);
+    },
+    async signIn() {
+      console.log('singIn');
+      return true;
     },
   },
 });
