@@ -1,6 +1,6 @@
 import { useAxios } from '@/lib/axios';
 import { useQuery } from 'react-query';
-import { Bookmark } from '@prisma/client';
+import { Bookmark } from '@/types';
 import { useSession } from 'next-auth/react';
 export const useFetchBookmark = (videoId: string) => {
   const { axios } = useAxios();

@@ -25,3 +25,12 @@ export type SearchMovieResult = {
   };
   items: YoutubeMovie[];
 };
+
+export type Bookmark = {
+  id: string;
+  title: string;
+  startAt: number;
+  videoId: string;
+  userId: string;
+  createdAt: Date;
+};
