@@ -15,14 +15,14 @@ const opts = {
 
 const Movie: React.VFC<Props> = (props) => {
   const { video } = props;
-  const url = '/movie/' + video.snippet.title;
+  const url = '/movie/' + video.title;
   return (
     <Box w='375px' h='260px' m='0 auto' textAlign='center'>
       <Center>
-        <YouTube videoId={video.id.videoId} opts={opts} />
+        <YouTube videoId={video.videoId} opts={opts} />
       </Center>
       <Link href={url}>
-        <a className='link'>{video.snippet.title}</a>
+        <a className='link'>{video.title}</a>
       </Link>
     </Box>
   );
