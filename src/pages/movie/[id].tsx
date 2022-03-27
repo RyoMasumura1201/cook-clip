@@ -4,7 +4,6 @@ import YouTube from 'react-youtube';
 import { Text, Box, Button, useDisclosure, AspectRatio } from '@chakra-ui/react';
 import Layout from '@/components/Layout';
 import { YoutubeMovie } from '@/types/index';
-import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
 import { Loading } from '@/components/Loading';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useState } from 'react';
