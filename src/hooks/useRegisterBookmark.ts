@@ -12,10 +12,8 @@ export const useRegisterBookmark = (onClose: () => void) => {
   const { axios } = useAxios();
   const { addNotificationStore } = useNotificationStore();
 
-  const url = process.env.NEXT_PUBLIC_BACKEND_URL + '/bookmarks';
-
   const registerBookmark = async (data: InputType) => {
-    return axios.post(url, data);
+    return axios.post('/bookmarks', data);
   };
 
   const useHandleRegisterBookmark = () => {
