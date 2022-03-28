@@ -4,11 +4,10 @@ import YouTube from 'react-youtube';
 import { Text, Box, Button, useDisclosure, AspectRatio } from '@chakra-ui/react';
 import Layout from '@/components/Layout';
 import { YoutubeMovie } from '@/types/index';
-import { CHANNEL_ID_OF_RYUJI } from '@/config/index';
 import { Loading } from '@/components/Loading';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useState } from 'react';
-// import { useFetchBookmark } from '@/hooks/useFetchBookmark';
+import axios, { AxiosResponse } from 'axios';
 
 type Props = {
   video: YoutubeMovie;
@@ -16,7 +15,6 @@ type Props = {
 
 const MoviePage: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
-  // const { isLoading, isError, data, refetch } = useFetchBookmark(video.id.videoId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
   const [startAt, setStartAt] = useState<number>();
@@ -45,21 +43,20 @@ const MoviePage: NextPage<Props> = ({ video }) => {
         <>
           <Box textAlign='center'>
             <Text fontWeight='bold' fontSize='large' mb='3'>
-              {video.snippet.title}
+              {video.title}
             </Text>
             <AspectRatio ratio={16 / 9} maxW='640px' m='0 auto'>
-              <YouTube videoId={video.id.videoId} opts={opts} onReady={makeYTPlayer} />
+              <YouTube videoId={video.videoId} opts={opts} onReady={makeYTPlayer} />
             </AspectRatio>
             <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3'>
               タイムスタンプ作成
             </Button>
-            {/* {data} */}
           </Box>
           <RegistarBookmark
             isOpen={isOpen}
             onClose={onClose}
             startAt={startAt}
-            videoId={video.id.videoId}
+            videoId={video.videoId}
           />
         </>
       ) : (
@@ -72,19 +69,11 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 export default MoviePage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(
-    'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=' +
-      CHANNEL_ID_OF_RYUJI +
-      '&maxResults=1' +
-      '&q=' +
-      params?.id +
-      '&key=' +
-      process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
+  const res: AxiosResponse<YoutubeMovie[]> = await axios(
+    process.env.NEXT_PUBLIC_BACKEND_URL + '/videos/' + params?.id,
   );
 
-  const data = await res.json();
-
-  const video = data.items[0];
+  const video = res.data;
 
   return {
     props: { video },
@@ -92,18 +81,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(
-    'https://www.googleapis.com/youtube/v3/search?part=id&channelId=' +
-      CHANNEL_ID_OF_RYUJI +
-      '&maxResults=10' +
-      '&key=' +
-      process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
+  const res: AxiosResponse<YoutubeMovie[]> = await axios(
+    process.env.NEXT_PUBLIC_BACKEND_URL + '/videos',
   );
-  const data = await res.json();
-  const items = data.items;
+  const data = await res.data;
 
-  const paths = items.map((item: YoutubeMovie) => ({
-    params: { id: item.id.videoId },
+  const paths = data.map((item: YoutubeMovie) => ({
+    params: { id: item.videoId },
   }));
 
   return { paths, fallback: true };
