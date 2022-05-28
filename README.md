@@ -1,3 +1,11 @@
-* template用
+```
+yarn dev
+```
 
-* prettier, eslint, chakra-uiを設定済
+で動く
+
+```
+pscale connect cook-clip <Branch Name> --port 3309
+```
+
+で DB と接続
