@@ -86,9 +86,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const res: AxiosResponse<YoutubeMovie[]> = await axios(
     uriScheme + process.env.VERCEL_URL + '/api/videos',
   );
-  const data = await res.data;
+  const data: any = await res.data;
+
+  console.log('*****');
   console.log(data);
-  console.log(typeof data);
+  console.log('******');
 
   const paths = data.map((item: YoutubeMovie) => ({
     params: { id: item.videoId },
