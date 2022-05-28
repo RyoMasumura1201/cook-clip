@@ -87,6 +87,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     uriScheme + process.env.VERCEL_URL + '/api/videos',
   );
   const data = await res.data;
+  console.log(data);
+  console.log(typeof data);
 
   const paths = data.map((item: YoutubeMovie) => ({
     params: { id: item.videoId },
