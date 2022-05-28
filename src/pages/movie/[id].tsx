@@ -69,8 +69,9 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 export default MoviePage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const uriScheme = process.env.URI_SCHEME as string;
   const res: AxiosResponse<YoutubeMovie[]> = await axios(
-    process.env.VERCEL_URL + '/api/videos/' + params?.id,
+    uriScheme + process.env.VERCEL_URL + '/api/videos/' + params?.id,
   );
 
   const video = res.data;
@@ -81,7 +82,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res: AxiosResponse<YoutubeMovie[]> = await axios(process.env.VERCEL_URL + '/api/videos');
+  const uriScheme = process.env.URI_SCHEME as string;
+  const res: AxiosResponse<YoutubeMovie[]> = await axios(
+    uriScheme + process.env.VERCEL_URL + '/api/videos',
+  );
   const data = await res.data;
 
   const paths = data.map((item: YoutubeMovie) => ({

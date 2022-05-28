@@ -19,7 +19,8 @@ export default NextAuth({
     async session({ session }) {
       console.log('session');
       const user = session.user;
-      const url = process.env.VERCEL_URL + '/api/users';
+      const uriScheme = process.env.URI_SCHEME as string;
+      const url = uriScheme + process.env.VERCEL_URL + '/api/users';
       const res = await axios.post(url, { name: user.name, email: user.email });
       session.user.id = res.data.id;
       return Promise.resolve(session);
