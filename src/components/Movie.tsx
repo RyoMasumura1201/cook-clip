@@ -1,11 +1,11 @@
 import { memo } from 'react';
 import Link from 'next/link';
-import { YoutubeMovie } from '@/types/index';
 import YouTube from 'react-youtube';
 import { Box, Center } from '@chakra-ui/react';
+import { Video } from '@prisma/client';
 
 type Props = {
-  video: YoutubeMovie;
+  video: Video;
 };
 
 const opts = {
