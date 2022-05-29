@@ -39,7 +39,7 @@ const Home: NextPage<Props> = () => {
         <Error />
       ) : (
         <Wrap justify='center' mt='4' spacing='1'>
-          {data?.slice(0, 20).map((item: Video) => (
+          {data?.map((item: Video) => (
             <WrapItem key={item.videoId} m='0 auto'>
               <Movie video={item} />
             </WrapItem>
