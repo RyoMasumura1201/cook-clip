@@ -3,11 +3,9 @@ import { useSession, signIn } from 'next-auth/react';
 import YouTube from 'react-youtube';
 import { Text, Box, Button, useDisclosure, AspectRatio } from '@chakra-ui/react';
 import Layout from '@/components/Layout';
-import { YoutubeMovie } from '@/types/index';
 import { Loading } from '@/components/Loading';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
 import { prisma } from '@/lib/prisma';
 import { Video } from '@prisma/client';
 
@@ -71,12 +69,12 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 export default MoviePage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const uriScheme = process.env.URI_SCHEME as string;
-  const res: AxiosResponse<YoutubeMovie[]> = await axios(
-    uriScheme + process.env.VERCEL_URL + '/api/videos/' + params?.id,
-  );
-
-  const video = res.data;
+  const videoId = params?.id as string;
+  const video = await prisma.video.findUnique({
+    where: {
+      videoId: videoId,
+    },
+  });
 
   return {
     props: { video },
