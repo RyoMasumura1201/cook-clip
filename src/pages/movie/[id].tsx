@@ -8,9 +8,11 @@ import { Loading } from '@/components/Loading';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { prisma } from '@/lib/prisma';
+import { Video } from '@prisma/client';
 
 type Props = {
-  video: YoutubeMovie;
+  video: Video;
 };
 
 const MoviePage: NextPage<Props> = ({ video }) => {
@@ -69,8 +71,9 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 export default MoviePage;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const uriScheme = process.env.URI_SCHEME as string;
   const res: AxiosResponse<YoutubeMovie[]> = await axios(
-    process.env.NEXT_PUBLIC_BACKEND_URL + '/videos/' + params?.id,
+    uriScheme + process.env.VERCEL_URL + '/api/videos/' + params?.id,
   );
 
   const video = res.data;
@@ -81,12 +84,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res: AxiosResponse<YoutubeMovie[]> = await axios(
-    process.env.NEXT_PUBLIC_BACKEND_URL + '/videos',
-  );
-  const data = await res.data;
+  const videos = await prisma.video.findMany();
 
-  const paths = data.map((item: YoutubeMovie) => ({
+  const paths = videos.map((item) => ({
     params: { id: item.videoId },
   }));
 

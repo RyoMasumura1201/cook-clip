@@ -7,7 +7,7 @@ const requestIntercepter = (config: AxiosRequestConfig) => {
 };
 
 export const useAxios = () => {
-  const axios = Axios.create({ baseURL: process.env.NEXT_PUBLIC_BACKEND_URL });
+  const axios = Axios.create({ baseURL: '/api' });
   const { addNotificationStore } = useNotificationStore();
   axios.interceptors.request.use(requestIntercepter);
   axios.interceptors.response.use(
