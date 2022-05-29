@@ -5,9 +5,10 @@ import { Text, Box, Button, useDisclosure, AspectRatio } from '@chakra-ui/react'
 import Layout from '@/components/Layout';
 import { Loading } from '@/components/Loading';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
+import { useFetchBookmarksOfVideo } from '@/hooks/useFetchBookmarksOfVideo';
 import { useState } from 'react';
 import { prisma } from '@/lib/prisma';
-import { Video } from '@prisma/client';
+import { Bookmark, Video } from '@prisma/client';
 
 type Props = {
   video: Video;
@@ -15,6 +16,7 @@ type Props = {
 
 const MoviePage: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
+  const email = session?.user.email as string;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
   const [startAt, setStartAt] = useState<number>();
@@ -37,6 +39,8 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     }
   };
 
+  const { isLoading, isError, data, refetch } = useFetchBookmarksOfVideo(video.videoId, email);
+
   return (
     <Layout>
       {video ? (
@@ -52,6 +56,9 @@ const MoviePage: NextPage<Props> = ({ video }) => {
               タイムスタンプ作成
             </Button>
           </Box>
+          {data?.map((item: Bookmark) => (
+            <p key={item.id}>{item.startAt}</p>
+          ))}
           <RegistarBookmark
             isOpen={isOpen}
             onClose={onClose}
