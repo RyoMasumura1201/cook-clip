@@ -9,6 +9,7 @@ import { useFetchBookmarksOfVideo } from '@/hooks/useFetchBookmarksOfVideo';
 import { useState } from 'react';
 import { prisma } from '@/lib/prisma';
 import { Bookmark, Video } from '@prisma/client';
+import { BookmarkOfVideo } from '@/components/BookmarkOfVideo';
 
 type Props = {
   video: Video;
@@ -52,13 +53,13 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             <AspectRatio ratio={16 / 9} maxW='640px' m='0 auto'>
               <YouTube videoId={video.videoId} opts={opts} onReady={makeYTPlayer} />
             </AspectRatio>
-            <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3'>
+            <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3' mb='10'>
               タイムスタンプ作成
             </Button>
+            {data?.map((item: Bookmark) => (
+              <BookmarkOfVideo bookmark={item} key={item.id} />
+            ))}
           </Box>
-          {data?.map((item: Bookmark) => (
-            <p key={item.id}>{item.startAt}</p>
-          ))}
           <RegistarBookmark
             isOpen={isOpen}
             onClose={onClose}
