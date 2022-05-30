@@ -56,7 +56,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3' mb='10'>
               タイムスタンプ作成
             </Button>
-            {data?.map((item: Bookmark) => (
+            {data?.map((item) => (
               <BookmarkOfVideo bookmark={item} key={item.id} />
             ))}
           </Box>
