@@ -1,9 +1,11 @@
 import { Text } from '@chakra-ui/react';
 import { Bookmark } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime';
+
 type Props = {
   bookmark: Bookmark;
 };
+
 export const BookmarkOfVideo: React.VFC<Props> = (props) => {
   const { bookmark } = props;
   const toHHMMSS = (secValue: Decimal) => {
