@@ -40,7 +40,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     }
   };
 
-  const { isLoading, isError, data, refetch } = useFetchBookmarksOfVideo(video.videoId, email);
+  const { isLoading, isError, data, refetch } = useFetchBookmarksOfVideo(video?.videoId, email);
 
   return (
     <Layout>
