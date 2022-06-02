@@ -8,7 +8,7 @@ import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useFetchBookmarksOfVideo } from '@/hooks/useFetchBookmarksOfVideo';
 import { useState } from 'react';
 import { prisma } from '@/lib/prisma';
-import { Bookmark, Video } from '@prisma/client';
+import { Video } from '@prisma/client';
 import { BookmarkOfVideo } from '@/components/BookmarkOfVideo';
 
 type Props = {
