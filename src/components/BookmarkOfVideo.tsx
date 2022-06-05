@@ -4,10 +4,11 @@ import { Decimal } from '@prisma/client/runtime';
 
 type Props = {
   bookmark: Bookmark;
+  ytPlayer: YT.Player;
 };
 
 export const BookmarkOfVideo: React.VFC<Props> = (props) => {
-  const { bookmark } = props;
+  const { bookmark, ytPlayer } = props;
   const toHHMMSS = (secValue: Decimal) => {
     const secInt = parseInt(secValue.toString(), 10);
     const hours = Math.floor(secInt / 3600);
@@ -26,7 +27,7 @@ export const BookmarkOfVideo: React.VFC<Props> = (props) => {
   };
 
   const hoge = () => {
-    alert('hoge');
+    ytPlayer.seekTo(parseInt(bookmark.startAt.toString(), 10), true);
   };
   return (
     <Text fontSize='x-large'>
