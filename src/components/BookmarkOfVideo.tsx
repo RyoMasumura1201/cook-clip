@@ -26,13 +26,13 @@ export const BookmarkOfVideo: React.VFC<Props> = (props) => {
     return formattedHours + ':' + formattedMinutes + ':' + formattedSecounds;
   };
 
-  const hoge = () => {
+  const moveToTimestamp = () => {
     ytPlayer?.seekTo(parseInt(bookmark.startAt.toString(), 10), true);
   };
   return (
     <Text fontSize='x-large'>
       ・
-      <a href='#' onClick={hoge} className='link' style={{ color: '#639bb7' }}>
+      <a href='#' onClick={moveToTimestamp} className='link' style={{ color: '#639bb7' }}>
         {toHHMMSS(bookmark.startAt)} : {bookmark.title}
       </a>
     </Text>
