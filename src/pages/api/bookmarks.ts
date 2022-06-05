@@ -18,11 +18,16 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       res.json(bookmark);
     }
   } else if (req.method === 'GET') {
-    const userId = req.query.userId?.toString();
-    const videoId = req.query.videoId?.toString();
+    if (!req.query.email || !req.query.videoId) {
+      return res.json([]);
+    }
+
+    const email = req.query.email.toString();
+    const user = await prisma.user.findUnique({ where: { email } });
+    const videoId = req.query.videoId.toString();
 
     const bookmarks = await prisma.bookmark.findMany({
-      where: { userId: userId, videoId: videoId },
+      where: { userId: user?.id, videoId: videoId },
       orderBy: {
         startAt: 'asc',
       },
