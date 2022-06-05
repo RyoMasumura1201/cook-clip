@@ -4,6 +4,7 @@ import YouTube from 'react-youtube';
 import { Text, Box, Button, useDisclosure, AspectRatio, Container } from '@chakra-ui/react';
 import Layout from '@/components/Layout';
 import { Loading } from '@/components/Loading';
+import { Error } from '@/components/Error';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
 import { useFetchBookmarksOfVideo } from '@/hooks/useFetchBookmarksOfVideo';
 import { useState } from 'react';
@@ -42,37 +43,47 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 
   const { isLoading, isError, data, refetch } = useFetchBookmarksOfVideo(video?.videoId, email);
 
+  if (isLoading) {
+    return (
+      <Layout>
+        <Loading />
+      </Layout>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Layout>
+        <Error />
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
-      {video ? (
-        <>
-          <Box textAlign='center'>
-            <Text fontWeight='bold' fontSize='large' mb='3'>
-              {video.title}
-            </Text>
-            <AspectRatio ratio={16 / 9} maxW='640px' m='0 auto'>
-              <YouTube videoId={video.videoId} opts={opts} onReady={makeYTPlayer} />
-            </AspectRatio>
-            <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3' mb='10'>
-              タイムスタンプ作成
-            </Button>
-          </Box>
-          <Container>
-            {data?.map((item) => (
-              <BookmarkOfVideo bookmark={item} ytPlayer={YTPlayer} key={item.id} />
-            ))}
-          </Container>
-          <RegistarBookmark
-            isOpen={isOpen}
-            onClose={onClose}
-            startAt={startAt}
-            videoId={video.videoId}
-            refetch={refetch}
-          />
-        </>
-      ) : (
-        <Loading />
-      )}
+      <Box textAlign='center'>
+        <Text fontWeight='bold' fontSize='large' mb='3'>
+          {video.title}
+        </Text>
+        <AspectRatio ratio={16 / 9} maxW='640px' m='0 auto'>
+          <YouTube videoId={video.videoId} opts={opts} onReady={makeYTPlayer} />
+        </AspectRatio>
+        <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3' mb='10'>
+          タイムスタンプ作成
+        </Button>
+      </Box>
+      <Container>
+        {data?.map((item) => (
+          <BookmarkOfVideo bookmark={item} ytPlayer={YTPlayer} key={item.id} />
+        ))}
+      </Container>
+      <RegistarBookmark
+        isOpen={isOpen}
+        onClose={onClose}
+        startAt={startAt}
+        videoId={video.videoId}
+        refetch={refetch}
+      />
     </Layout>
   );
 };
