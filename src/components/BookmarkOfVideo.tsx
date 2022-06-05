@@ -24,9 +24,16 @@ export const BookmarkOfVideo: React.VFC<Props> = (props) => {
 
     return formattedHours + ':' + formattedMinutes + ':' + formattedSecounds;
   };
+
+  const hoge = () => {
+    alert('hoge');
+  };
   return (
-    <Text fontSize='large'>
-      {bookmark.title} : {toHHMMSS(bookmark.startAt)}
+    <Text fontSize='x-large'>
+      ・
+      <a href='#' onClick={hoge} className='link' style={{ color: '#639bb7' }}>
+        {toHHMMSS(bookmark.startAt)} : {bookmark.title}
+      </a>
     </Text>
   );
 };

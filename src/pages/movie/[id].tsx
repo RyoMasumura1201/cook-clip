@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { useSession, signIn } from 'next-auth/react';
 import YouTube from 'react-youtube';
-import { Text, Box, Button, useDisclosure, AspectRatio } from '@chakra-ui/react';
+import { Text, Box, Button, useDisclosure, AspectRatio, Container } from '@chakra-ui/react';
 import Layout from '@/components/Layout';
 import { Loading } from '@/components/Loading';
 import { RegistarBookmark } from '@/components/RegistarBookmark';
@@ -56,10 +56,12 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3' mb='10'>
               タイムスタンプ作成
             </Button>
+          </Box>
+          <Container>
             {data?.map((item) => (
               <BookmarkOfVideo bookmark={item} key={item.id} />
             ))}
-          </Box>
+          </Container>
           <RegistarBookmark
             isOpen={isOpen}
             onClose={onClose}
