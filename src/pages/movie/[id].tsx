@@ -67,6 +67,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
             onClose={onClose}
             startAt={startAt}
             videoId={video.videoId}
+            refetch={refetch}
           />
         </>
       ) : (

@@ -8,7 +8,7 @@ type InputType = {
   title: string;
   email: string;
 };
-export const useRegisterBookmark = (onClose: () => void) => {
+export const useRegisterBookmark = (onClose: () => void, refetch: () => void) => {
   const { axios } = useAxios();
   const { addNotificationStore } = useNotificationStore();
 
@@ -21,6 +21,7 @@ export const useRegisterBookmark = (onClose: () => void) => {
       onSuccess: () => {
         onClose();
         addNotificationStore({ type: 'success', message: '登録しました' });
+        refetch();
       },
     });
   };

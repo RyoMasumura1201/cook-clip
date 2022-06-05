@@ -23,9 +23,10 @@ type Props = {
   onClose: () => void;
   startAt: number | undefined;
   videoId: string;
+  refetch: () => void;
 };
 export const RegistarBookmark: React.VFC<Props> = (props) => {
-  const { isOpen, onClose, startAt, videoId } = props;
+  const { isOpen, onClose, startAt, videoId, refetch } = props;
 
   const { data: session } = useSession();
   const email = session?.user.email as string;
@@ -48,7 +49,7 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
     resolver: zodResolver(schema),
   });
 
-  const { useHandleRegisterBookmark } = useRegisterBookmark(onClose);
+  const { useHandleRegisterBookmark } = useRegisterBookmark(onClose, refetch);
   const registerBookmark = useHandleRegisterBookmark();
 
   return (
