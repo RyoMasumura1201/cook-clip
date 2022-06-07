@@ -13,6 +13,7 @@
     "registerVideo": "ts-node --project tsconfig.registerVideo.json -r dotenv/config  src/lib/registerVideo.ts dotenv_config_path=.env.local"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.2",
     "@chakra-ui/react": "^1.8.1",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
