@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { notificationListState } from '@/stores/notifications';
-import { NotificationToast } from './NotificationToast';
+import NotificationToast from './NotificationToast';
+
 export const Notifications: React.VFC = () => {
   const [notificationList, setNotificationList] = useRecoilState(notificationListState);
 

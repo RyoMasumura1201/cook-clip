@@ -1,10 +1,11 @@
 import { Notification } from '@/stores/notifications';
 import { useToast } from '@chakra-ui/react';
+import { memo } from 'react';
 
 type Props = Notification & {
   dismissNotification: (id: string) => void;
 };
-export const NotificationToast: React.VFC<Props> = (props) => {
+const NotificationToast: React.VFC<Props> = (props) => {
   const { id, type, title, message, dismissNotification } = props;
   const toast = useToast();
   return (
@@ -21,3 +22,5 @@ export const NotificationToast: React.VFC<Props> = (props) => {
     </>
   );
 };
+
+export default memo(NotificationToast);
