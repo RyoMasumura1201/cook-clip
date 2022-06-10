@@ -1,8 +1,9 @@
 import { useRecoilState } from 'recoil';
 import { notificationListState } from '@/stores/notifications';
 import NotificationToast from './NotificationToast';
+import { memo } from 'react';
 
-export const Notifications: React.VFC = () => {
+const Notifications: React.VFC = () => {
   const [notificationList, setNotificationList] = useRecoilState(notificationListState);
 
   const dismissNotification = (id: string) => {
@@ -23,3 +24,5 @@ export const Notifications: React.VFC = () => {
     </>
   );
 };
+
+export default memo(Notifications);
