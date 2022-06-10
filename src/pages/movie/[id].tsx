@@ -79,7 +79,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
       <MovieDescription description={video.description} />
       <Container>
         {data?.map((item) => (
-          <BookmarkOfVideo bookmark={item} ytPlayer={YTPlayer} key={item.id} />
+          <BookmarkOfVideo bookmark={item} ytPlayer={YTPlayer} key={item.id} refetch={refetch} />
         ))}
       </Container>
       <RegistarBookmark

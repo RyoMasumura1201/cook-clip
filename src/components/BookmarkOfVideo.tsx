@@ -1,15 +1,22 @@
-import { Text } from '@chakra-ui/react';
+import { Text, Flex, Spacer } from '@chakra-ui/react';
 import { Bookmark } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime';
 import { memo } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { useSession } from 'next-auth/react';
+import { useDeleteBookmark } from '@/hooks/useDeleteBookmark';
+import { deleteParameterType } from '@/types/index';
 
 type Props = {
   bookmark: Bookmark;
   ytPlayer: YT.Player | undefined;
+  refetch: () => void;
 };
 
 const BookmarkOfVideo: React.VFC<Props> = (props) => {
-  const { bookmark, ytPlayer } = props;
+  const { bookmark, ytPlayer, refetch } = props;
+  const { data: session } = useSession();
+  const email = session?.user.email as string;
   const toHHMMSS = (secValue: Decimal) => {
     const secInt = parseInt(secValue.toString(), 10);
     const hours = Math.floor(secInt / 3600);
@@ -30,13 +37,40 @@ const BookmarkOfVideo: React.VFC<Props> = (props) => {
   const moveToTimestamp = () => {
     ytPlayer?.seekTo(parseInt(bookmark.startAt.toString(), 10), true);
   };
+
+  const deleteParameter: deleteParameterType = {
+    data: {
+      bookmarkId: bookmark.id,
+      email: email,
+    },
+  };
+
+  const { useHandleDeleteBookmark } = useDeleteBookmark(refetch);
+
+  const deleteBookmark = useHandleDeleteBookmark();
+
+  const removeTimeStamp = () => {
+    deleteBookmark.mutateAsync(deleteParameter);
+  };
   return (
-    <Text fontSize='x-large'>
-      ・
-      <a href='#' onClick={moveToTimestamp} className='link' style={{ color: '#639bb7' }}>
-        {toHHMMSS(bookmark.startAt)} : {bookmark.title}
-      </a>
-    </Text>
+    <>
+      <Flex>
+        <Text fontSize='x-large'>
+          ・
+          <a href='#' onClick={moveToTimestamp} className='link' style={{ color: '#639bb7' }}>
+            {toHHMMSS(bookmark.startAt)} : {bookmark.title}
+          </a>
+        </Text>
+        <Spacer />
+        <FaTrash
+          fontSize='large'
+          color='gray'
+          style={{ marginTop: '8px' }}
+          onClick={removeTimeStamp}
+          className='link'
+        />
+      </Flex>
+    </>
   );
 };
 
