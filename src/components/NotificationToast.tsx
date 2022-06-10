@@ -14,7 +14,7 @@ const NotificationToast: React.VFC<Props> = (props) => {
         title,
         description: message,
         status: type,
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
         position: 'top',
         onCloseComplete: () => dismissNotification(id),
