@@ -8,11 +8,6 @@ type Props = {
   video: Video;
 };
 
-const opts = {
-  height: '180px',
-  width: '320px',
-};
-
 const Movie: React.VFC<Props> = (props) => {
   const { video } = props;
   const url = '/movie/' + video.videoId;
