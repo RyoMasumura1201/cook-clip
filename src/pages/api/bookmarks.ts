@@ -33,5 +33,22 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       },
     });
     res.json(bookmarks);
+  } else if (req.method === 'DELETE') {
+    console.log(req.body);
+    const bookmarkId = req.body.bookmarkId.toString();
+    const email = req.body.email.toString();
+    const bookmark = await prisma.bookmark.findUnique({ where: { id: bookmarkId } });
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (bookmark?.userId !== user?.id) {
+      return res.json([]);
+    }
+
+    const bookmarks = await prisma.bookmark.delete({
+      where: {
+        id: bookmarkId,
+      },
+    });
+    res.json(bookmarks);
   }
 }
