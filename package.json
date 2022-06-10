@@ -31,7 +31,7 @@
     "react-hook-form": "^7.28.0",
     "react-icons": "^4.3.1",
     "react-query": "^3.34.16",
-    "react-youtube": "^7.14.0",
+    "react-youtube": "^9.0.2",
     "recoil": "^0.6.1",
     "zod": "^3.13.4"
   },
