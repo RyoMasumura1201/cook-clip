@@ -10,7 +10,8 @@
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'",
     "prismaStudio": "dotenv -e .env.local prisma studio ",
     "prismaPush": "dotenv -e .env.local prisma db push ",
-    "registerVideo": "ts-node --project tsconfig.registerVideo.json -r dotenv/config  src/lib/registerVideo.ts dotenv_config_path=.env.local"
+    "registerVideo": "ts-node --project tsconfig.registerVideo.json -r dotenv/config  src/lib/registerVideo.ts dotenv_config_path=.env.local",
+    "updateDescription": "ts-node --project tsconfig.registerVideo.json -r dotenv/config  src/lib/updateDescription.ts dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",
