@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import Link from 'next/link';
-import YouTube from 'react-youtube';
-import { Box, Center } from '@chakra-ui/react';
+import { Box, Center, Text } from '@chakra-ui/react';
 import { Video } from '@prisma/client';
+import Image from 'next/image';
 
 type Props = {
   video: Video;
@@ -16,13 +16,16 @@ const opts = {
 const Movie: React.VFC<Props> = (props) => {
   const { video } = props;
   const url = '/movie/' + video.videoId;
+  const src = 'https://img.youtube.com/vi/' + video.videoId + '/mqdefault.jpg';
   return (
     <Box w='375px' h='260px' m='0 auto' textAlign='center'>
-      <Center>
-        <YouTube videoId={video.videoId} opts={opts} />
-      </Center>
       <Link href={url}>
-        <a className='link'>{video.title}</a>
+        <a className='link'>
+          <Center>
+            <Image src={src} width='320px' height='180px' alt='thumbnail' />
+          </Center>
+          <Text>{video.title}</Text>
+        </a>
       </Link>
     </Box>
   );
