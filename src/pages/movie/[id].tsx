@@ -19,7 +19,6 @@ type Props = {
 
 const MoviePage: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
-  const email = session?.user.email as string;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [YTPlayer, setYTPlayer] = useState<YT.Player>();
   const [startAt, setStartAt] = useState<number>();
@@ -42,7 +41,10 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     }
   };
 
-  const { isLoading, isError, data, refetch } = useFetchBookmarksOfVideo(video?.videoId, email);
+  const { isLoading, isError, data, refetch } = useFetchBookmarksOfVideo(
+    video?.videoId,
+    session?.user.email,
+  );
 
   if (isLoading) {
     return (
