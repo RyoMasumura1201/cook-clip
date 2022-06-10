@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, Box } from '@chakra-ui/react';
-import { AddIcon, MinusIcon } from '@chakra-ui/icons';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 
 type Props = {
   description: string;
@@ -18,7 +18,7 @@ const MovieDescription: React.VFC<Props> = (props) => {
                 <Box flex='1' textAlign='left'>
                   概要欄
                 </Box>
-                {isExpanded ? <MinusIcon fontSize='12px' /> : <AddIcon fontSize='12px' />}
+                {isExpanded ? <FaAngleUp fontSize='12px' /> : <FaAngleDown fontSize='12px' />}
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>{description}</AccordionPanel>
