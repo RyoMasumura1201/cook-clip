@@ -5,12 +5,13 @@ import { Text, Box, Button, useDisclosure, AspectRatio, Container } from '@chakr
 import Layout from '@/components/Layout';
 import { Loading } from '@/components/Loading';
 import { Error } from '@/components/Error';
-import { RegistarBookmark } from '@/components/RegistarBookmark';
+import RegistarBookmark from '@/components/RegistarBookmark';
 import { useFetchBookmarksOfVideo } from '@/hooks/useFetchBookmarksOfVideo';
 import { useState } from 'react';
 import { prisma } from '@/lib/prisma';
 import { Video } from '@prisma/client';
-import { BookmarkOfVideo } from '@/components/BookmarkOfVideo';
+import BookmarkOfVideo from '@/components/BookmarkOfVideo';
+import MovieDescription from '@/components/MovieDescription';
 
 type Props = {
   video: Video;
@@ -72,6 +73,8 @@ const MoviePage: NextPage<Props> = ({ video }) => {
           タイムスタンプ作成
         </Button>
       </Box>
+
+      <MovieDescription description={video.description} />
       <Container>
         {data?.map((item) => (
           <BookmarkOfVideo bookmark={item} ytPlayer={YTPlayer} key={item.id} />
