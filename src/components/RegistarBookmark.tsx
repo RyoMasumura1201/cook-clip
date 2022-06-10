@@ -10,13 +10,13 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  VisuallyHiddenInput,
 } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRegisterBookmark } from '@/hooks/useRegisterBookmark';
+import React, { memo } from 'react';
 
 type Props = {
   isOpen: boolean;
@@ -25,7 +25,7 @@ type Props = {
   videoId: string;
   refetch: () => void;
 };
-export const RegistarBookmark: React.VFC<Props> = (props) => {
+const RegistarBookmark: React.VFC<Props> = (props) => {
   const { isOpen, onClose, startAt, videoId, refetch } = props;
 
   const { data: session } = useSession();
@@ -33,23 +33,19 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
 
   const schema = z.object({
     title: z.string().min(1, '1文字以上入力してください'),
-    startAt: z
-      .string()
-      .refine((v) => {
-        return !isNaN(Number(v));
-      })
-      .transform((v) => {
-        return Number(v);
-      }),
-    videoId: z.string(),
-    email: z.string(),
   });
   type InputType = z.infer<typeof schema>;
   const { register, handleSubmit, formState } = useForm<InputType>({
     resolver: zodResolver(schema),
   });
 
-  const { useHandleRegisterBookmark } = useRegisterBookmark(onClose, refetch);
+  const { useHandleRegisterBookmark } = useRegisterBookmark(
+    onClose,
+    refetch,
+    startAt,
+    videoId,
+    email,
+  );
   const registerBookmark = useHandleRegisterBookmark();
 
   return (
@@ -63,9 +59,6 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
             <VStack spacing='2'>
               <Text fontWeight='bold'>タイトル</Text>
               <Input {...register('title')} />
-              <VisuallyHiddenInput {...register('startAt')} defaultValue={startAt} />
-              <VisuallyHiddenInput {...register('videoId')} defaultValue={videoId} />
-              <VisuallyHiddenInput {...register('email')} defaultValue={email} />
               <Text color='red.500'>{formState.errors.title?.message}</Text>
             </VStack>
           </ModalBody>
@@ -80,3 +73,5 @@ export const RegistarBookmark: React.VFC<Props> = (props) => {
     </Modal>
   );
 };
+
+export default memo(RegistarBookmark);

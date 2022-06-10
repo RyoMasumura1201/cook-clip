@@ -3,16 +3,26 @@ import { useMutation } from 'react-query';
 import { useNotificationStore } from '@/stores/notifications';
 
 type InputType = {
-  startAt: number;
-  videoId: string;
+  startAt?: number;
+  videoId?: string;
   title: string;
-  email: string;
+  email?: string;
 };
-export const useRegisterBookmark = (onClose: () => void, refetch: () => void) => {
+
+export const useRegisterBookmark = (
+  onClose: () => void,
+  refetch: () => void,
+  startAt: number | undefined,
+  videoId: string,
+  email: string,
+) => {
   const { axios } = useAxios();
   const { addNotificationStore } = useNotificationStore();
 
   const registerBookmark = async (data: InputType) => {
+    data.startAt = startAt;
+    data.videoId = videoId;
+    data.email = email;
     return axios.post('/bookmarks', data);
   };
 
