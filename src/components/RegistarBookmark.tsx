@@ -23,10 +23,9 @@ type Props = {
   onClose: () => void;
   startAt: number | undefined;
   videoId: string;
-  refetch: () => void;
 };
 const RegistarBookmark: React.VFC<Props> = (props) => {
-  const { isOpen, onClose, startAt, videoId, refetch } = props;
+  const { isOpen, onClose, startAt, videoId } = props;
 
   const { data: session } = useSession();
   const email = session?.user.email as string;
@@ -39,20 +38,18 @@ const RegistarBookmark: React.VFC<Props> = (props) => {
     resolver: zodResolver(schema),
   });
 
-  const { useHandleRegisterBookmark } = useRegisterBookmark(
-    onClose,
-    refetch,
-    startAt,
-    videoId,
-    email,
-  );
+  const { useHandleRegisterBookmark } = useRegisterBookmark(onClose, startAt, videoId, email);
   const registerBookmark = useHandleRegisterBookmark();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <form onSubmit={handleSubmit(async (data) => registerBookmark.mutateAsync(data))}>
+        <form
+          onSubmit={handleSubmit(async (data) => {
+            registerBookmark.mutateAsync(data);
+          })}
+        >
           <ModalHeader>タイムスタンプ登録</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

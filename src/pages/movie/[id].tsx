@@ -41,7 +41,7 @@ const MoviePage: NextPage<Props> = ({ video }) => {
     }
   };
 
-  const { isLoading, isError, data, refetch } = useFetchBookmarksOfVideo(
+  const { isLoading, isError, data } = useFetchBookmarksOfVideo(
     video?.videoId,
     session?.user.email,
   );
@@ -79,7 +79,12 @@ const MoviePage: NextPage<Props> = ({ video }) => {
       <MovieDescription description={video.description} />
       <Container>
         {data?.map((item) => (
-          <BookmarkOfVideo bookmark={item} ytPlayer={YTPlayer} key={item.id} refetch={refetch} />
+          <BookmarkOfVideo
+            bookmark={item}
+            ytPlayer={YTPlayer}
+            key={item.id}
+            videoId={video.videoId}
+          />
         ))}
       </Container>
       <RegistarBookmark
@@ -87,7 +92,6 @@ const MoviePage: NextPage<Props> = ({ video }) => {
         onClose={onClose}
         startAt={startAt}
         videoId={video.videoId}
-        refetch={refetch}
       />
     </Layout>
   );
