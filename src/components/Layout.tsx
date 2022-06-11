@@ -12,7 +12,7 @@ const Layout: React.VFC<Props> = ({ children, isHome }) => {
     <div className='site-wrapper'>
       <SEO />
       <Header isHome={isHome} />
-      <main>{children}</main>
+      <main style={{ marginBottom: '5px' }}>{children}</main>
     </div>
   );
 };
