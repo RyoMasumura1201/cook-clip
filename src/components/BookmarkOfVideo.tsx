@@ -10,11 +10,11 @@ import { deleteParameterType } from '@/types/index';
 type Props = {
   bookmark: Bookmark;
   ytPlayer: YT.Player | undefined;
-  refetch: () => void;
+  videoId: string;
 };
 
 const BookmarkOfVideo: React.VFC<Props> = (props) => {
-  const { bookmark, ytPlayer, refetch } = props;
+  const { bookmark, ytPlayer, videoId } = props;
   const { data: session } = useSession();
   const email = session?.user.email as string;
   const toHHMMSS = (secValue: Decimal) => {
@@ -45,7 +45,7 @@ const BookmarkOfVideo: React.VFC<Props> = (props) => {
     },
   };
 
-  const { useHandleDeleteBookmark } = useDeleteBookmark(refetch);
+  const { useHandleDeleteBookmark } = useDeleteBookmark(deleteParameter, videoId);
 
   const deleteBookmark = useHandleDeleteBookmark();
 
