@@ -1,5 +1,5 @@
 import Axios, { AxiosRequestConfig } from 'axios';
-import { useNotificationStore } from '@/stores/notifications';
+import { useHandleToast } from '@/hooks/useHandleToast';
 
 const requestIntercepter = (config: AxiosRequestConfig) => {
   config.headers = { 'Content-Type': 'application/json' };
@@ -8,7 +8,8 @@ const requestIntercepter = (config: AxiosRequestConfig) => {
 
 export const useAxios = () => {
   const axios = Axios.create({ baseURL: '/api' });
-  const { addNotificationStore } = useNotificationStore();
+  const { errorToast } = useHandleToast();
+
   axios.interceptors.request.use(requestIntercepter);
   axios.interceptors.response.use(
     (response) => {
@@ -16,7 +17,7 @@ export const useAxios = () => {
     },
     (error) => {
       const message: string = error.response?.data?.message || error.message;
-      addNotificationStore({ type: 'error', message });
+      errorToast();
 
       return Promise.reject(error);
     },

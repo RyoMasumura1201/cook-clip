@@ -1,13 +1,13 @@
 import { useAxios } from '@/lib/axios';
 import { useMutation } from 'react-query';
-import { useNotificationStore } from '@/stores/notifications';
 import { deleteParameterType } from '@/types/index';
 import { queryClient } from '@/lib/react-query';
 import { Bookmark } from '@prisma/client';
+import { useHandleToast } from '@/hooks/useHandleToast';
 
 export const useDeleteBookmark = (data: deleteParameterType, videoId: string) => {
   const { axios } = useAxios();
-  const { addNotificationStore } = useNotificationStore();
+  const { deleteBookmarkToast } = useHandleToast();
 
   const deleteBookmark = async (data: deleteParameterType) => {
     return axios.delete('/bookmarks', data);
@@ -37,7 +37,7 @@ export const useDeleteBookmark = (data: deleteParameterType, videoId: string) =>
       },
       onSuccess: () => {
         queryClient.invalidateQueries(['bookmarksOfVideo', data.data.email, videoId]);
-        addNotificationStore({ type: 'success', message: '削除しました' });
+        deleteBookmarkToast();
       },
       mutationFn: deleteBookmark,
     });

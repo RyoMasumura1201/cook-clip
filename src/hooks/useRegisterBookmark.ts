@@ -1,8 +1,8 @@
 import { useAxios } from '@/lib/axios';
 import { useMutation } from 'react-query';
-import { useNotificationStore } from '@/stores/notifications';
 import { queryClient } from '@/lib/react-query';
 import { Bookmark } from '@prisma/client';
+import { useHandleToast } from '@/hooks/useHandleToast';
 
 type InputType = {
   startAt?: number;
@@ -18,7 +18,7 @@ export const useRegisterBookmark = (
   email: string,
 ) => {
   const { axios } = useAxios();
-  const { addNotificationStore } = useNotificationStore();
+  const { registerBookmarkToast } = useHandleToast();
 
   const registerBookmark = async (data: InputType): Promise<Bookmark> => {
     data.startAt = startAt;
@@ -40,7 +40,7 @@ export const useRegisterBookmark = (
         });
         queryClient.setQueryData(['bookmarksOfVideo', email, videoId], bookmarks);
         queryClient.invalidateQueries(['bookmarksOfVideo', email, videoId]);
-        addNotificationStore({ type: 'success', message: '登録しました' });
+        registerBookmarkToast();
       },
       mutationFn: registerBookmark,
     });
