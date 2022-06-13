@@ -21,7 +21,9 @@ const MovieDescription: React.VFC<Props> = (props) => {
                 {isExpanded ? <FaAngleUp fontSize='12px' /> : <FaAngleDown fontSize='12px' />}
               </AccordionButton>
             </h2>
-            <AccordionPanel pb={4}>{description}</AccordionPanel>
+            <AccordionPanel pb={4} whiteSpace='pre-wrap'>
+              {description}
+            </AccordionPanel>
           </>
         )}
       </AccordionItem>
