@@ -9,7 +9,7 @@ const SEO: React.VFC = () => {
       <meta name='og:title' content='Cook Clip' />
       <meta name='description' content='clip cooking video' />
       <meta property='og:description' content='clip cooking video' />
-      <meta property='og:image' content='https://cook-clip.vercel.app/public/cooking_mama.png' />
+      <meta property='og:image' content='https://cook-clip.vercel.app/cooking_mama.png' />
       <meta name='twitter:card' content='summary_large_image' />
       <link
         rel='icon'
