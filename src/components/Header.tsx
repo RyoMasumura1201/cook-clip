@@ -21,7 +21,7 @@ const Header: React.VFC<Props> = (props) => {
           <Session />
         </Flex>
       ) : (
-        <Flex>
+        <Flex position='fixed' width='100%' zIndex='1' bg='white'>
           <Link href='/'>
             <a>
               <Text fontSize='xx-large' fontWeight='bold' whiteSpace='nowrap' ml='3'>
