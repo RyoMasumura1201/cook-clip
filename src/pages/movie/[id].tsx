@@ -64,29 +64,30 @@ const MoviePage: NextPage<Props> = ({ video }) => {
 
   return (
     <Layout>
-      <Box textAlign='center'>
+      <Box textAlign='center' position='fixed' width='100%' pt='50px' bg='white'>
         <Text fontWeight='bold' fontSize='large' mb='3'>
           {video.title}
         </Text>
         <AspectRatio ratio={16 / 9} maxW='640px' m='0 auto'>
           <YouTube videoId={video.videoId} opts={opts} onReady={makeYTPlayer} />
         </AspectRatio>
-        <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3' mb='10'>
+        <Button colorScheme='orange' onClick={handleMakeTimestamp} mt='3' mb='5'>
           タイムスタンプ作成
         </Button>
       </Box>
-
-      <MovieDescription description={video.description} />
-      <Container>
-        {data?.map((item) => (
-          <BookmarkOfVideo
-            bookmark={item}
-            ytPlayer={YTPlayer}
-            key={item.id}
-            videoId={video.videoId}
-          />
-        ))}
-      </Container>
+      <Box pt={{ base: '400px', md: '530px' }}>
+        <MovieDescription description={video.description} />
+        <Container>
+          {data?.map((item) => (
+            <BookmarkOfVideo
+              bookmark={item}
+              ytPlayer={YTPlayer}
+              key={item.id}
+              videoId={video.videoId}
+            />
+          ))}
+        </Container>
+      </Box>
       <RegistarBookmark
         isOpen={isOpen}
         onClose={onClose}
